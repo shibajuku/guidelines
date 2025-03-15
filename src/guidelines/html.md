@@ -1,0 +1,617 @@
+# HTMLガイドライン
+
+HTMLによるマークアップは、以下を基本ルールとします。
+
+1. HTML タグは必ず小文字で記述する。
+2. 終了タグは必ず記述する。
+3. エンプティ要素（`img`, `br`, `meta`, `link` など）は開始タグの末尾に `/` を記述する。
+4. 視覚表現（装飾やアニメーション）は外部ファイル化した CSS、JavaScript で行う。
+5. [Prettier](https://prettier.io/) によるコードフォーマットを行う。
+6. [HTML Standard](https://html.spec.whatwg.org/multipage/) に従い正しく記述し、[Markuplint](https://markuplint.dev/ja/) ならびに、[Nu Html Checker](https://validator.w3.org/nu/)などのツールを利用し検証する。
+
+## DOCTYPE
+
+特別な指示がない限り、必要最低限のDOCTYPEのみ記述します。
+
+```html
+<!DOCTYPE html>
+```
+
+## 文字エンコーディング
+
+UTF-8 を使用してください。また、ファイルは UTF-8（BOM 無し）で保存してください。
+
+```html
+<meta charset="UTF-8" />
+```
+
+## head 要素
+
+`head` 要素内は以下の順番で記述して下さい。
+
+1. `meta` 要素
+   1. `charset` 属性
+   2. `http-equiv` 属性
+   3. `name` 属性
+   4. `property` 属性
+   5. その他
+2. `title` 要素
+3. `link` 要素
+   1. `canonical` 属性
+   2. `stylesheet` 属性
+   3. `icon` 属性
+   4. `apple-touch-icon` 属性
+   5. `alternate` 属性
+   6. その他
+4. `style` 要素
+5. `script` 要素
+6. その他
+
+```html
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="description" content="DescriptionText…" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="author" content="/humans.txt" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@twitter" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PageTitle | SiteName" />
+  <meta property="og:description" content="DescriptionText…" />
+  <meta property="og:url" content="https://example.com" />
+  <meta property="og:site_name" content="SiteName" />
+  <meta property="og:image" content="/assets/img/common/logo-ogp.png" />
+  <meta property="fb:app_id" content="0123456" />
+  <title>PageTitle | SiteName</title>
+  <link rel="canonical" href="https://example.com">
+  <link rel="stylesheet" href="/assets/styles/global.css" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <script type="module" src="/assets/scripts/main.ts"></script>
+</head>
+```
+
+## titile 要素
+
+ユーザビリティ、アクセシビリティ、SEO の観点から適切な内容を記述してください。
+
+なお、特に指示がない限りセパレーターは `|`（半角縦棒）」を利用してください。
+
+### TOP ページ
+
+サイト名に加え、所在地や主要なサービスや商品を 32 文字程度で記述してください。
+
+■ 例
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<title>Sample Company</title>
+
+<!-- 🙆‍♀️ 良い例 -->
+<title>Sample Company | 大阪にあるワクワクを創造するWeb制作会社</title>
+```
+
+
+### 下層ページ
+
+内容がわかる各ページ固有のページ名とカテゴリ名、サイト名を記述してください。
+
+■ 例
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<title>Sample Company | レスポンシブWebデザイン</title>
+
+<!-- 🙆‍♀️ 良い例 -->
+<title>レスポンシブWebデザイン | 出来ること | Sample Company</title>
+```
+
+
+## meta 要素（description、keywords、author）
+
+ユーザビリティ、アクセシビリティ、SEO の観点から適切な内容を記述してください。
+
+### description メタタグ
+
+ページの内容がわかる紹介文を 124 文字程度で記述してください。
+
+ただし、本文中の文章をそのまま使うことは禁止します。
+
+```html
+<meta name="description" content="レスポンシブWebデザインとは様々なデバイスに最適なデザインを提供するサイト構築方法の一つです。レスポンシブWebデザインでWebサイトを構築することでWebサイトのメンテナンス性も向上します。さぁあなたのサイトもレスポンシブWebデザインで構築しよう。" />
+```
+
+### keywords メタタグ
+
+基本的には使用しません。特別な理由で使用する場合はページの内容に関連したキーワードを 5 個程度で記述してください。
+
+```html
+<meta name="keywords" content="レスポンシブWebデザイン,スマートフォンサイト,Web制作,大阪,Sample Company" />
+```
+
+### author メタタグ
+
+無理には利用する必要ありませんが、使用する場合は humans.txt を作成し、読み込ませてください。
+
+```html
+<meta name="author" content="humans.txt" />
+```
+
+
+## CSS ファイルの読み込み
+
+CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを読み込んでください。
+
+※CSS を HTML に直接記述する Inline CSS は、カスタムプロパティの定義を除き、原則禁止します。
+
+```html
+<link rel="stylesheet" href="/assets/styles/global.css" />
+```
+
+## JavaScript ファイルの読み込み
+原則、JavaScriptライブラリはHTMLに読み込まず、JavaScriptファイル内に `import` で読み込んでください。
+
+`import` を利用せず直接HTMLにライブラリを読み込む必要がある場合は、依存関係の読み込み順に考慮しつつ、
+ `head` 要素内に、`defer` 属性を利用し、非同期で読み込んでください。
+
+```html
+<script src="/assets/scripts/alpinejs.min.js" defer></script>
+<script type="module" src="/assets/scripts/main.ts"></script>
+```
+
+
+::: warning
+原則 jQuery やその他ライブラリなどを利用する際は、パッケージマネージャーでインストールするなど、セルフホストが可能な状態で利用してください。やむを得ずCDNで読み込む必要がある場合は、軽量化（ミニファイ）されたものを読み込んでください。
+:::
+
+
+
+
+::: tip
+アクセス解析のトラッキングコードや、SNSの埋め込みコードに関しては、インラインで記述しても構いません。
+
+```html
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+
+  gtag("config", trackingId);
+</script>
+```
+
+:::
+
+
+
+
+
+## ページの構成
+ページのヘッダー、ナビゲーション、主要コンテンツ、フッターは、それぞれ、`header`、`nav`、`main`、`footer` 要素を用いて、暗黙のランドマークロール（`banner`、`navigation`、`main`、`contentinfo`）を持たせるように配置してください。
+
+また、複数のランドマーク要素を配置する場合は、 `aria-label`、`aria-labelledby`属性を用いてアクセシブルな名前を指定してください。
+
+```html
+<body>
+  <header><!-- role banner -->
+    <nav aria-label="メインメニュー">
+      ...
+    </nav>
+    ...
+  </header>
+  <main><!-- role main -->
+    <nav aria-labelledby="local-nav">
+      <h2 id="local-nav">ページ内メニュー</h2>
+      ...
+    </nav>
+    ...
+  </main>
+  <footer><!-- role contentinfo -->
+    ...
+  </footer>
+</body>
+```
+
+
+
+## アウトライン
+CMSなどによる投稿されたコンテンツを除き、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）と見出し要素 （`h1` – `h6`）を用いて、アウトラインを生成してください。
+
+ページの見出しは `h1` から始まり、コンテンツの階層に合わせた見出しレベルを適切に利用してください。
+
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<h2>中見出し</h2>
+<div>見出しに対する内容</div>
+<h1>大見出し</h1>
+<div>見出しに対する内容</div>
+<h3>小見出し</h3>
+<div>見出しに対する内容</div>
+<h2>中見出し</h2>
+<div>見出しに対する内容</div>
+
+<!-- 🙆‍♀️ 良い例 -->
+<h1>大見出し</h1>
+<div>見出しに対する内容</div>
+<section>
+  <h2>中見出し</h2>
+  <div>見出しに対する内容</div>
+  <section>
+    <h3>小見出し</h3>
+    <div>見出しに対する内容</div>
+  </section>
+</section>
+<section>
+  <h2>中見出し</h2>
+  <div>見出しに対する内容</div>
+</section>
+```
+
+
+## フォーム
+
+コンタクトフォームのようなフォームには、`form` 要素にアクセシブルな名前を指定し、`form` ランドマークとして配置してください。フォームの内容が検索の場合は `search` 要素内にフォームを内包してください。
+
+```html
+<!-- コンタクトフォーム -->
+<form action="confirm.php" method="post" aria-labelledby="contact-form">
+  <h2 id="contact-form">お問い合わせフォーム</h2>
+  <p>
+    <label>
+      お名前（必須項目）
+      <input type="text" name="name" placeholder="架空 太郎" autocomplete="name" required>
+    </label>
+  </p>
+  <p>
+    <label>
+      メールアドレス（必須項目）
+      <input type="email" name="email" placeholder="taro@example.com" autocomplete="email" inputmode="email" required>
+    </label>
+  </p>
+  <p>
+    <label>
+      お問合せ内容（必須項目）
+      <textarea name="inquiry" cols="30" rows="10" placeholder="御社の架空の理念に共感しました" required></textarea>
+    </label>
+  </p>
+
+  <p><button>送信</button></p>
+</form>
+
+<!-- 検索フォーム -->
+<search>
+  <form action="search.php">
+    <label>
+      サイト内検索
+      <input type="search" name="q">
+    </label>
+    <button>検索</button>
+  </form>
+</search>
+```
+
+
+## HTML特殊文字
+
+HTMLの特殊文字は名前付き文字参照で記述してください。
+
+■ 例
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+&、<、>、"
+
+<!-- 🙆‍♀️ 良い例 -->
+&amp;、&lt;、&gt;、&quot;
+```
+
+
+## 改行
+文の分割が重要な箇所（詩など）を除き、`br` 要素による改行は原則禁止します。
+視覚的な改行は、`wbr` 要素または、`span` 要素（`display` を `block flow` または `inline flow-root` などにする）を活用して改行してください。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<p>架空会社Dummy Creationsは、<time datetime="2023-04-01">2023年4月1日</time>に<br>架空 太郎によって設立されました。</p>
+
+<!-- 🙆‍♀️ 良い例 -->
+<p>架空会社Dummy Creationsは、<time datetime="2023-04-01">2023年4月1日</time>に<wbr>架空 太郎によって設立されました。</p>
+```
+
+
+## リンクとリソースの参照
+
+### プロジェクト内のリンクやリソース
+
+プロジェクト内のリンクや、リソースを参照する際の `href` や `src` 属性は、`/` から始まるパス絶対URL（ルートパス）で指定してください。
+
+なお、各ディレクトリ内の「index.html」へのリンクは、ファイル名を省略してください。
+
+■ 例
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<a href="../about/index.html">About</a>
+
+<!-- 🙆‍♀️ 良い例 -->
+<a href="/about/">About</a>
+```
+
+### 外部リンク
+外部リンクの `href` 属性は、`http` や `https` から始まる絶対URLで指定してください。
+
+原則、`//` から始まる。スキーム相対URLは禁止します。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<a href="//shibajuku.net/about/" target="_blank">Shibajuku（新しいタブで開きます）</a>
+
+<!-- 🙆‍♀️ 良い例 -->
+<a href="https://shibajuku.net/about/" target="_blank">Shibajuku（新しいタブで開きます）</a>
+```
+
+::: tip
+必要に応じて `target="_blank"` や `rel="noreferrer"` 属性を指定してください。
+`target="_blank"` を指定した際、`rel`属性に、`noopener` は不要です。
+また、`target="_blank"` を指定した際は、新しいタブやウインドウで開かれることがユーザーに伝わるようにしてください。
+:::
+
+
+### 外部リソース
+堅牢生を確保するため、WebフォントやGoogle Maps、YouTubeなどのセルフホストができないリソースを除き、外部リソースの読み込みは原則禁止します。
+
+
+### ページ内リンク
+ページ内リンクは、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）、または ヘディング・コンテンツ（`h1` – `h6`, `hgroup`）、`figure` に `id` 属性を適切な固有名で指定しリンクしてください。
+
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<a href="#abcdef">サービス</a>
+...
+<div id="abcdef">
+ ...
+</div>
+
+
+<!-- 🙆‍♀️ 良い例 -->
+<a href="#service">サービス</a>
+...
+<section id="service">
+ ...
+</section>
+```
+
+
+## id属性
+
+`id`属性は、コンテンツの内容を表した適切な固有名で指定してください。
+可能であれば、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）には、ページ内リンクを指定しない場合でも `id`属性を指定し、ユーザーがコンテンツにリンクを指定できるように備えてください。
+
+なお、サイト公開後は、外部からコンテンツへのリンクさている可能性を考慮し、安易に `id`属性の値を変更または削除しないでください。
+
+
+## 画像
+パフォーマンスを考慮し、最適な画像形式、サイズで表示されるようにしてください。
+
+### 画像形式
+
+JPEG、PNG形式の画像は圧縮を行ってください。
+
+また、AVIF ならびに WebP 形式の画像を生成し、`.htaccess` を用いて最適な画像形式がレスポンスされるようにしてください。
+
+`.htaccess` が使えない環境や、[Astro](https://astro.build/)のように、`picture` 要素を生成する静的サイトジェネレーターを使っている場合は、`picture` 要素を用いて最適な形式で表示されるようにしてください。
+
+```html
+<!-- picture要素を使った例 -->
+<picture>
+  <source srcset="/assets/images/coffee.avif, /assets/images/coffee@2x.avif 2x" type="image/avif">
+  <source srcset="/assets/images/coffee.webp, /assets/images/coffee@2x.webp 2x" type="image/webp">
+  <img src="/assets/images/coffee.jpg" srcset="/assets/images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+</picture>
+```
+
+### レイアウトシフトへの対応
+
+`img` 要素には、原則として `width` 属性と `height` 属性を指定してください。
+ただし、CSS側でサイズや比率が明確な場合はこの限りではありません。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<img src="/assets/images/coffee.jpg" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+
+<!-- 🙆‍♀️ 良い例 -->
+<img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+```
+
+なお、`picture` と `source` 要素を複数のソースが指定されいており、それぞれのソースの画像のサイズや比率が異なる場合は、`source` 要素にも`width` 属性と `height` 属性を指定してください。
+
+```html
+<picture>
+  <source srcset="images/pc.jpg, images/pc@2x.jpg 2x" width="400" height="400" media="(min-width: 992px)">
+  <source srcset="images/tablet.jpg, images/tablet@2x.jpg 2x" width="768" height="420" media="(min-width: 768px)">
+  <img src="images/sp.jpg" srcset="images/sp.jpg, images/sp@2x.jpg 2x" width="1024" height="768" alt="代替テキスト" loading="lazy">
+</picture>
+```
+
+
+### 代替テキスト
+`alt` 属性は必ず記述してください。
+
+代替えテキストは画像自体を説明するのではなく、画像の代わりになるような文章を（画像から得られる情報を過不足なく）記述してください。
+前後の文章との繋がりも考慮し、画像の代わりにその代替えテキストを読み上げてもページの内容が成り立つような文章にしてください。
+
+ポイントは以下の４つです。
+
+- そこに画像を配置できなかったら、何を書いていたかを考えて書く
+- 画像のキャプションやタイトル、凡例のようなテキストを入れるわけではない
+- 画像を補完するためのものではない（補足情報は title属性 を使う）
+- 代替えテキストは、画像の横の文章で既に記述している情報を繰り返さない
+
+
+```html
+<p>
+  焙煎時間が短いほど色が明るく、焙煎時間が長いほど色が黒っぽくなります。
+  <img src="/assets/images/roast-level.jpg" alt="ライトローストは薄っすら焦げ目がついた小麦色で、シナモンロースト、ミディアムロースト、ハイロースト、シティロースト、フルシティロースト、フレンチロースト、イタリアンローストの順に色が黒に近づきます。">
+  そして、焙煎時間が短いほど酸味が強く、焙煎時間が長いほど苦味が強くなります。
+</p>
+```
+
+
+画像がアイコンなどの装飾目的の画像の場合であり、その横にあるテキストなどで同じ意味のテキストなどがある場合は、alt属性の内容を空にします。
+
+```html
+<p><a href="help/"><img src="/assets/images/icon-help.svg" alt=""> ヘルプ</a></p>
+```
+
+
+ロゴをページの見出しとして利用する場合は、alt属性にその会社やお店、サービスなどの名前を含めます。（「ロゴ」などのテキストは必要ありません）
+
+```html
+<h1><img src="images/logo-dummy-cafe.svg" alt="Dummy Cafe"></h1>
+```
+
+ただし、ロゴの横にその会社やお店、サービスなどの名前がテキストで表示されているような場合は、ロゴはその補足となるため、`alt`属性は空にします。
+
+```html
+<p>当店のコーヒー豆は、<img src="images/logo-dummy-company.svg" alt=""> Dummy Company さんから仕入れています。</p>
+```
+
+::: tip
+代替テキストは、デザイン時点で決定することが理想です。
+:::
+
+### 高解像ディスプレイへの対応
+
+SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、Retina Display などの高解像ディスプレイへの対応を行ってください。記述子は `size`属性 と組み合わせた幅記述子（`w`）を推奨しますが、ピクセル密度記述子（`x`） を使ったデバイスピクセル比ごとの対応でも構いません。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<img src="/assets/images/coffee.jpg" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+
+<!-- 🙆‍♀️ 良い例 -->
+<img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+```
+
+
+### 非同期デコードと遅延読み込み
+
+画像のデコードはブラウザの最適化に任せるため、 `decoding` 属性の指定は行わないでください。
+また、ファースビューやビューポート内に多くの画像が利用される箇所を除き、`loading="lazy"` を指定し、画像の遅延読み込みを行ってください。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー">
+
+<!-- 🙆‍♀️ 良い例 -->
+<img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
+```
+
+## コメント
+`div` 要素は、終了タグの次の行にコメントを記述するようにしてください。
+
+コメント内容は、`/` の後に、開始タグに付けられた `id` または `class` 属性の値を CSSセレクターの形式で記述してください。
+
+
+```html
+<div class="l-container">
+・
+・
+・
+</div>
+<!-- /.l-container -->
+```
+
+
+
+
+## キーボード操作
+
+ページ内の操作可能要素（リンクやボタン、フォームフォールドなど）は、キーボードのみで操作可能にしてください。
+
+- タブキーで移動可能
+- キーボードで実行可能（Enter など）
+
+原則、アコーディオンメニューのような開閉式ウィジェットは、`details` 要素と `summary` 要素を用いて実装し、モーダルウインドウのようなダイアログボックスは、 `button` 要素と、`dialog` 要素を用いて実装してください。
+
+
+::: tip
+モーダレスのダイアログには `popover` 属性を活用してください。
+:::
+
+
+## 状態管理
+
+要素の状態管理は、原則 class属性（`is-*` など）で管理せず、以下の属性で管理してください。
+
+### HTML標準の属性
+
+HTML標準の属性で状態を示せる場合は標準の属性を使用してください。
+
+フォームコントロール部品の無効化を表す `disabled` や、セレクトボックスの選択状態を表す `selected` 属性などが該当します。
+
+```html
+<label>
+  希望勤務地
+  <select name="area">
+    <option value="">エリアを選択して下さい</option>
+    <option value="北海道">北海道エリア</option>
+    <option value="東北">東北エリア</option>
+    <option value="関東" selected>関東エリア</option>
+    <option value="中部">中部エリア</option>
+    <option value="近畿">近畿エリア</option>
+    <option value="中国">中国エリア</option>
+    <option value="四国">四国エリア</option>
+    <option value="九州">九州エリア</option>
+  </select>
+</label>
+
+<button disabled>送信</button>
+```
+
+
+### ARIA 属性
+
+標準の属性がない場合は、適切な ARIA属性（`aria-*`）がないか検討してください。
+現在コンテンツが展開されているかどうかの状態を示す `aria-expanded` 属性や、トグルボタンの現在の押下状態を示す `aria-pressed` 属性、パンくずナビゲーションなどで現在のページを表す `aria-current="page"` などが該当します。
+
+
+```html
+<button type="button" aria-controls="panel" aria-expanded="false">パネルを開く</button>
+<div id="panel" aria-hidden="true">
+...
+</div>
+```
+
+### data-* 属性
+
+標準の属性、または ARIA 属性にも適切な属性がない場合は、、`data-*` 属性を利用してください。
+
+```html
+<div data-theme="dark">
+...
+</div>
+```
+
+
+
+
+
+## アクセシビリティ
+
+[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4つの基本原則（知覚可能、操作可能、理解可能、堅牢性）をもとに、AA の準拠を目指したマークアップを心がけてください。
+
+WAI-ARIA （`aria-*` や `role` 属性）は、HTML の標準仕様ではどうしても対応できない場合のみに利用してください。
+
+主には以下のような場合です。
+
+- 明示的にランドマークを上書きする必要がある場合
+- 動的コンテンツの更新を通知する場合
+- キーボード操作のアクセシビリティを向上する上で必要な場合
