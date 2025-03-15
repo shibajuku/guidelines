@@ -3,15 +3,13 @@
 layout: home
 
 hero:
-  name: "Shibajuku Coding Guidelines"
-  text: "Guidelines for coding in Shibajuku"
-  tagline: My great project tagline
+  name: "Shibajuku Guidelines"
+  text: "Web Production Guidelines"
+  tagline: ShibajukuのWeb制作ガイドライン
   actions:
     - theme: brand
-      text: Guidelines
-      link: /guidelines
-
-
+      text: Coding Guidelines
+      link: /coding-guidelines
 features:
   - title: Feature A
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit

@@ -9,25 +9,25 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Guidelines', link: '/guidelines' }
+      { text: 'Coding Guidelines', link: '/coding-guidelines' }
     ],
 
     sidebar: [
       {
         text: 'ガイドライン',
         items: [
-          { text: '基本仕様', link: '/guidelines/base' },
-          { text: 'HTMLガイドライン', link: '/guidelines/html' },
-          { text: 'CSSガイドライン', link: '/guidelines/css' },
-          { text: 'JavaScriptガイドライン', link: '/guidelines/javascript' },
-          { text: '命名規則', link: '/guidelines/naming' },
-          { text: '品質管理', link: '/guidelines/quality' },
+          { text: '基本仕様', link: '/coding-guidelines/base' },
+          { text: 'HTMLガイドライン', link: '/coding-guidelines/html' },
+          { text: 'CSSガイドライン', link: '/coding-guidelines/css' },
+          { text: 'JavaScriptガイドライン', link: '/coding-guidelines/javascript' },
+          { text: '命名規則', link: '/coding-guidelines/naming' },
+          { text: '品質管理', link: '/coding-guidelines/quality' },
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/shibajuku/coding-guidelines' }
+      { icon: 'github', link: 'https://github.com/shibajuku/guidelines' }
     ],
 
     lastUpdated: {
