@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/guidelines/",
   title: "Shibajuku Guidelines",
   description: "ShibajukuのWebサイト制作ガイドライン",
   themeConfig: {
