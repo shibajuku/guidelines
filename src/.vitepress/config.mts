@@ -14,12 +14,12 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'ガイドライン',
+        text: 'コーディングガイドライン',
         items: [
-          { text: '基本仕様', link: '/coding-guidelines/base' },
-          { text: 'HTMLガイドライン', link: '/coding-guidelines/html' },
-          { text: 'CSSガイドライン', link: '/coding-guidelines/css' },
-          { text: 'JavaScriptガイドライン', link: '/coding-guidelines/javascript' },
+          { text: '基本仕様', link: '/coding-guidelines/' },
+          { text: 'HTML ガイドライン', link: '/coding-guidelines/html' },
+          { text: 'CSS ガイドライン', link: '/coding-guidelines/css' },
+          { text: 'JavaScript ガイドライン', link: '/coding-guidelines/javascript' },
           { text: '命名規則', link: '/coding-guidelines/naming' },
           { text: '品質管理', link: '/coding-guidelines/quality' },
         ]

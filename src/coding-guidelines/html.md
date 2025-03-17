@@ -1,29 +1,42 @@
-# HTMLガイドライン
+# HTML ガイドライン
 
-HTMLによるマークアップは、以下を基本ルールとします。
+セマンティックで、アクセシブルなマークアップを行うことを目的に、以下のガイドラインに則ったコーディングを行ってください。
+
+
+## 基本ルール
 
 1. HTML タグは必ず小文字で記述する。
 2. 終了タグは必ず記述する。
 3. エンプティ要素（`img`, `br`, `meta`, `link` など）は開始タグの末尾に `/` を記述する。
-4. 視覚表現（装飾やアニメーション）は外部ファイル化した CSS、JavaScript で行う。
-5. [Prettier](https://prettier.io/) によるコードフォーマットを行う。
-6. [HTML Standard](https://html.spec.whatwg.org/multipage/) に従い正しく記述し、[Markuplint](https://markuplint.dev/ja/) ならびに、[Nu Html Checker](https://validator.w3.org/nu/)などのツールを利用し検証する。
+4. `div` や `span` は、他に適切な要素がない場合にのみ利用する。
+5. 視覚表現（装飾やアニメーション）は外部ファイル化した CSS、JavaScript で行う。
+6. [Prettier](https://prettier.io/) によるコードフォーマットを行う。
+7. [HTML Standard](https://html.spec.whatwg.org/multipage/) に従い正しく記述し、[Markuplint](https://markuplint.dev/ja/) ならびに、[Nu Html Checker](https://validator.w3.org/nu/) などのツールを利用し検証する。
 
 ## DOCTYPE
 
-特別な指示がない限り、必要最低限のDOCTYPEのみ記述します。
+特別な指示がない限り、必要最低限の DOCTYPE のみ記述します。
 
 ```html
 <!DOCTYPE html>
 ```
 
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson1 HTMLの基本」→「Chapter6 HTMLのバージョンとDOCTYPE」を参照してください。
+:::
+
 ## 文字エンコーディング
 
-UTF-8 を使用してください。また、ファイルは UTF-8（BOM 無し）で保存してください。
+`UTF-8` を使用してください。また、ファイルは `UTF-8`（BOM 無し）で保存してください。
 
 ```html
 <meta charset="UTF-8" />
 ```
+
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson1 HTMLの基本」→「Chapter7 文字エンコーディングと文字化け」を参照してください。
+:::
+
 
 ## head 要素
 
@@ -95,6 +108,9 @@ UTF-8 を使用してください。また、ファイルは UTF-8（BOM 無し�
 <title>Sample Company | 大阪にあるワクワクを創造するWeb制作会社</title>
 ```
 
+::: info
+詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
+:::
 
 ### 下層ページ
 
@@ -110,10 +126,17 @@ UTF-8 を使用してください。また、ファイルは UTF-8（BOM 無し�
 <title>レスポンシブWebデザイン | 出来ること | Sample Company</title>
 ```
 
+::: info
+詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
+:::
 
 ## meta 要素（description、keywords、author）
 
 ユーザビリティ、アクセシビリティ、SEO の観点から適切な内容を記述してください。
+
+::: info
+詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
+:::
 
 ### description メタタグ
 
@@ -124,6 +147,10 @@ UTF-8 を使用してください。また、ファイルは UTF-8（BOM 無し�
 ```html
 <meta name="description" content="レスポンシブWebデザインとは様々なデバイスに最適なデザインを提供するサイト構築方法の一つです。レスポンシブWebデザインでWebサイトを構築することでWebサイトのメンテナンス性も向上します。さぁあなたのサイトもレスポンシブWebデザインで構築しよう。" />
 ```
+
+::: info
+詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
+:::
 
 ### keywords メタタグ
 
@@ -219,6 +246,9 @@ CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを�
 ```
 
 
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson13 セクションとグルーピング」→「Chapter2 基本構造の要素」を参照してください。
+:::
 
 ## アウトライン
 CMSなどによる投稿されたコンテンツを除き、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）と見出し要素 （`h1` – `h6`）を用いて、アウトラインを生成してください。
@@ -254,6 +284,10 @@ CMSなどによる投稿されたコンテンツを除き、セクショニン�
 </section>
 ```
 
+
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson13 セクションとグルーピング」→「Chapter1 セクショニング関連の要素」を参照してください。
+:::
 
 ## フォーム
 
@@ -298,19 +332,25 @@ CMSなどによる投稿されたコンテンツを除き、セクショニン�
 ```
 
 
-## HTML特殊文字
+## HTML 特殊文字
 
-HTMLの特殊文字は名前付き文字参照で記述してください。
+HTML の特殊文字は名前付き文字参照で記述してください。
 
 ■ 例
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
-&、<、>、"
+&、<、>、"、'
 
 <!-- 🙆‍♀️ 良い例 -->
-&amp;、&lt;、&gt;、&quot;
+&amp;、&lt;、&gt;、&quot;, &apos;
 ```
+
+
+
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter2 特殊な記述が必要な要素」を参照してください。
+:::
 
 
 ## 改行
@@ -325,6 +365,9 @@ HTMLの特殊文字は名前付き文字参照で記述してください。
 <p>架空会社Dummy Creationsは、<time datetime="2023-04-01">2023年4月1日</time>に<wbr>架空 太郎によって設立されました。</p>
 ```
 
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter3 改行を表す」と、「本気で始めるCSS入門」→「Lesson5 縦書きと折り返し」を参照してください。
+:::
 
 ## リンクとリソースの参照
 
@@ -389,6 +432,9 @@ HTMLの特殊文字は名前付き文字参照で記述してください。
 </section>
 ```
 
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson5 ハイパーリンク」を参照してください。
+:::
 
 ## id属性
 
@@ -407,7 +453,7 @@ JPEG、PNG形式の画像は圧縮を行ってください。
 
 また、AVIF ならびに WebP 形式の画像を生成し、`.htaccess` を用いて最適な画像形式がレスポンスされるようにしてください。
 
-`.htaccess` が使えない環境や、[Astro](https://astro.build/)のように、`picture` 要素を生成する静的サイトジェネレーターを使っている場合は、`picture` 要素を用いて最適な形式で表示されるようにしてください。
+`.htaccess` が使えない環境や、[Astro](https://astro.build/) の `<Picture />` コンポーネントのように、`picture` 要素を自動で生成する場合は、`picture` 要素 と `source` 要素を用いて最適な形式で表示されるようにしてください。
 
 ```html
 <!-- picture要素を使った例 -->
@@ -514,6 +560,11 @@ SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、
 <img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy">
 ```
 
+
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson6 画像関連の要素」を参照してください。
+:::
+
 ## コメント
 `div` 要素は、終了タグの次の行にコメントを記述するようにしてください。
 
@@ -521,12 +572,12 @@ SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、
 
 
 ```html
-<div class="l-container">
+<div class="container">
 ・
 ・
 ・
 </div>
-<!-- /.l-container -->
+<!-- /.container -->
 ```
 
 
@@ -546,6 +597,10 @@ SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、
 モーダレスのダイアログには `popover` 属性を活用してください。
 :::
 
+
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson12 インタラクティブ要素」を参照してください。
+:::
 
 ## 状態管理
 
@@ -602,7 +657,9 @@ HTML標準の属性で状態を示せる場合は標準の属性を使用して�
 
 
 
-
+::: info
+詳細は「本気で始めるHTML入門」→「Lesson10 フォーム関連の要素 – 前編 –」と「Lesson11 フォーム関連の要素 – 後編 –」を参照してください。
+:::
 
 ## アクセシビリティ
 
