@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Shibajuku Guidelines",
   description: "ShibajukuのWebサイト制作ガイドライン",
+  lang: "ja",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -29,8 +30,17 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/shibajuku/guidelines' }
     ],
 
+    search: {
+      provider: 'local'
+    },
+
+    editLink: {
+      pattern: 'https://github.com/shibajuku/guidelines/edit/main/src/:path',
+      text: 'GitHubで編集する'
+    },
+
     lastUpdated: {
-      text: 'Updated at',
+      text: '最終更新日',
       formatOptions: {
         dateStyle: 'full',
         timeStyle: 'medium'

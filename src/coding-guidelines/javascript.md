@@ -2,6 +2,8 @@
 
 JavaScript は動的な表現が必要な際と、外部 API などを利用する際に使用します。
 
+
+## 基本ルール
 1. HTML や CSS で出来ないかを考えてから使用してください。
 2. ユーザビリティを考慮し、動作が遅くならないように注意する。
 3. 動作チェックの他に、見ただけでは分からないようなエラーがないかコンソールで確認する。
@@ -16,9 +18,7 @@ JavaScript は動的な表現が必要な際と、外部 API などを利用す�
 
 [jQuery](https://jquery.com/) は原則として利用しませんが、既存のプロジェクトで利用している場合など、利用する必要がある場合には、jQuery を使った開発も許容します。
 
-::: info
-Orelop 環境は、[TypeScript](https://www.typescriptlang.org/) による開発が可能です。
-:::
+
 
 
 
@@ -50,7 +50,7 @@ JavaScript（TypeScript） ファイルは、機能ごとに分割し、該当�
           └── main-ハッシュ値.js
 ```
 
-::: info
+::: tip Orelop 環境の場合
 Orelop 環境の場合は、デフォルトで `main-ハッシュ値.js` にまとめられます。
 :::
 
@@ -63,19 +63,24 @@ Orelop 環境の場合は、デフォルトで `main-ハッシュ値.js` にま�
 
 堅牢性を考慮して、ライブラリは原則 CDN で読み込むことはせず、パッケージマネージャー（ pnpm 推奨） でインストールし、`import` して利用してください。
 
-```zsh
-# npm の場合
+
+::: code-group
+```zsh [npm]
 npm install [library name] - D
-
-# yarn の場合
-yarn add [library name] - D
-
-# pnpm の場合
-pnpm add [library name] - D
 ```
 
+```zsh [Yarn]
+yarn add [library name] - D
+```
 
-::: info
+```zsh [pnpm]
+pnpm add [library name] - D
+```
+:::
+
+
+
+::: info Orelop 環境インストール時に選択できるライブラリ
 Orelop 環境の場合は、インストール時のオプションで以下のライブラリをインストールできます。
 
 - [GSAP](https://greensock.com/gsap/)
@@ -86,37 +91,28 @@ Orelop 環境の場合は、インストール時のオプションで以下の�
 :::
 
 
-ただし、以下のライブラリなどは CDN で読み込むことを許容します。
 
 
-- [htmx](https://htmx.org/)
-- [Alpine.js](https://alpinejs.dev/)
-
-CDNを利用する場合は、依存関係の読み込み順に注意して、`<head>` 内に `defer`属性をつけて読み込んでください。
-
-```html
-<head>
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" defer></script>
-</head>
-```
-
-::: tip
+::: tip jQueryの利用
 jQuery は原則利用しませんが、利用する場合はパッケージマネージャーでインストールし、`import` して利用してください。
 
-```zsh
-# npm の場合
+
+::: code-group
+```zsh [npm]
 npm install jquery - D
+```
 
-# yarn の場合
+```zsh [Yarn]
 yarn add jquery - D
+```
 
-# pnpm の場合
+```zsh [pnpm]
 pnpm add jquery - D
 ```
 :::
 
 
-## スクリプトの開発
+## モジュール化
 
 JavaScript（TypeScript） は、機能ごとにファイルを分割し、ESModules でモジュール化してください。
 

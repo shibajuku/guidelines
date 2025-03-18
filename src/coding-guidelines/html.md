@@ -5,13 +5,83 @@
 
 ## 基本ルール
 
-1. HTML タグは必ず小文字で記述する。
-2. 終了タグは必ず記述する。
-3. エンプティ要素（`img`, `br`, `meta`, `link` など）は開始タグの末尾に `/` を記述する。
-4. `div` や `span` は、他に適切な要素がない場合にのみ利用する。
-5. 視覚表現（装飾やアニメーション）は外部ファイル化した CSS、JavaScript で行う。
-6. [Prettier](https://prettier.io/) によるコードフォーマットを行う。
-7. [HTML Standard](https://html.spec.whatwg.org/multipage/) に従い正しく記述し、[Markuplint](https://markuplint.dev/ja/) ならびに、[Nu Html Checker](https://validator.w3.org/nu/) などのツールを利用し検証する。
+以下を基本ルールとして、[HTML Standard](https://html.spec.whatwg.org/multipage/) に則ったマークアップを行ってください。
+
+
+1. タグ名や属性名は小文字で記述する
+2. 終了タグは省略しない
+3. エンプティ要素（`img`, `br`, `meta`, `link` など）は開始タグの末尾に `/` を記述する
+4. `div` や `span` は、他に適切な要素がない場合にのみ利用する
+5. 入れ子にした要素は、適切に改行、インデントを行う
+6. 属性値の引用符はダブルクォート（`"`）を利用する
+7. ブール型属性の属性値は省略し、属性名のみ記述する
+8. 視覚表現（レイアウトや装飾、アニメーションなど）はHTMLで行わない
+9. [Prettier](https://prettier.io/) によるコードフォーマットを行う
+10. [Markuplint](https://markuplint.dev/ja/) によるコード解析を行いエラーに対応する
+
+
+
+## ファイル構成
+
+
+::: code-group
+``` [HTML]
+📂 src                            # 開発ディレクトリ
+├── 📂 category-name              # 下層ページ
+│    ├── page-name.html
+│    └── index.html
+└── index.html
+```
+
+
+``` [Astro]
+📂 src                            # 開発ディレクトリ
+├── 📂 components                 # コンポーネント
+│    └── Component-name.astro
+├── 📂 layouts                    # レイアウト
+│    └── Layout-name.astro
+└── 📂 pages                      # ページ
+     ├── 📂 category-name         # 下層ページ
+     │    └── index.astro
+     └── index.astro
+```
+:::
+
+トップページは、開発ディレクトリの直下に `index.html` （Astro 環境の場合は `page` ディレクトリの直下に `index.astro` ）として配置してください。
+
+下層ページは、カテゴリー毎にディレクトリを作成し、その中に `index.html` （Astro 環境の場合は `index.astro` ）として配置してください。
+
+
+
+## HTML の特殊文字
+
+HTML の特殊文字は名前付き文字参照で記述してください。
+
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+&、<、>、"、'
+
+<!-- 🙆‍♀️ 良い例 -->
+&amp;、&lt;、&gt;、&quot;, &apos;
+```
+
+URL内の `&` も対象です。
+
+```html
+<!-- 🙅‍♂️ 悪い例 -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- 🙆‍♀️ 良い例 -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">
+```
+
+::: info 教材
+詳細は「本気で始めるHTML入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter2 特殊な記述が必要な要素」を参照してください。
+:::
+
+
+
 
 ## DOCTYPE
 
@@ -21,20 +91,8 @@
 <!DOCTYPE html>
 ```
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson1 HTMLの基本」→「Chapter6 HTMLのバージョンとDOCTYPE」を参照してください。
-:::
-
-## 文字エンコーディング
-
-`UTF-8` を使用してください。また、ファイルは `UTF-8`（BOM 無し）で保存してください。
-
-```html
-<meta charset="UTF-8" />
-```
-
-::: info
-詳細は「本気で始めるHTML入門」→「Lesson1 HTMLの基本」→「Chapter7 文字エンコーディングと文字化け」を参照してください。
 :::
 
 
@@ -50,8 +108,8 @@
    5. その他
 2. `title` 要素
 3. `link` 要素
-   1. `canonical` 属性
-   2. `stylesheet` 属性
+   1. `stylesheet` 属性
+   2. `canonical` 属性
    3. `icon` 属性
    4. `apple-touch-icon` 属性
    5. `alternate` 属性
@@ -68,7 +126,7 @@
   <meta name="description" content="DescriptionText…" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="author" content="/humans.txt" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@twitter" />
   <meta property="og:locale" content="ja_JP" />
   <meta property="og:type" content="website" />
@@ -76,11 +134,11 @@
   <meta property="og:description" content="DescriptionText…" />
   <meta property="og:url" content="https://example.com" />
   <meta property="og:site_name" content="SiteName" />
-  <meta property="og:image" content="/assets/img/common/logo-ogp.png" />
+  <meta property="og:image" content="https://example.com/assets/images/ogp.png" />
   <meta property="fb:app_id" content="0123456" />
   <title>PageTitle | SiteName</title>
-  <link rel="canonical" href="https://example.com">
   <link rel="stylesheet" href="/assets/styles/global.css" />
+  <link rel="canonical" href="https://example.com">
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
@@ -94,11 +152,10 @@
 
 なお、特に指示がない限りセパレーターは `|`（半角縦棒）」を利用してください。
 
-### TOP ページ
+### トップページ
 
 サイト名に加え、所在地や主要なサービスや商品を 32 文字程度で記述してください。
 
-■ 例
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -108,7 +165,7 @@
 <title>Sample Company | 大阪にあるワクワクを創造するWeb制作会社</title>
 ```
 
-::: info
+::: info 教材
 詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
 :::
 
@@ -116,7 +173,6 @@
 
 内容がわかる各ページ固有のページ名とカテゴリ名、サイト名を記述してください。
 
-■ 例
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -126,19 +182,36 @@
 <title>レスポンシブWebデザイン | 出来ること | Sample Company</title>
 ```
 
-::: info
+::: info 教材
 詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
 :::
 
-## meta 要素（description、keywords、author）
+## meta 要素
 
-ユーザビリティ、アクセシビリティ、SEO の観点から適切な内容を記述してください。
+以下の `meta` 要素を配置してください。
 
-::: info
-詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
+### 文字エンコーディング
+
+`UTF-8` を使用してください。また、ファイルは `UTF-8`（BOM 無し）で保存してください。
+
+```html
+<meta charset="UTF-8" />
+```
+
+::: info 教材
+詳細は「本気で始めるHTML入門」→「Lesson1 HTMLの基本」→「Chapter7 文字エンコーディングと文字化け」を参照してください。
 :::
 
-### description メタタグ
+### ビューポート
+
+モバイルデバイス対応のため `width=device-width` にしてください。
+
+```html
+<meta name="viewport" content="width=device-width" />
+```
+
+
+### 紹介文
 
 ページの内容がわかる紹介文を 124 文字程度で記述してください。
 
@@ -148,38 +221,120 @@
 <meta name="description" content="レスポンシブWebデザインとは様々なデバイスに最適なデザインを提供するサイト構築方法の一つです。レスポンシブWebデザインでWebサイトを構築することでWebサイトのメンテナンス性も向上します。さぁあなたのサイトもレスポンシブWebデザインで構築しよう。" />
 ```
 
-::: info
+::: info 教材
 詳細は「Webディレクション講座」→「Lesson6 効果的なSEO」を参照してください。
 :::
 
-### keywords メタタグ
+### 電話番号の自動リンク機能
 
-基本的には使用しません。特別な理由で使用する場合はページの内容に関連したキーワードを 5 個程度で記述してください。
+連続した数値が電話番号としてリンクされるのを防ぐため、`telephone=no` を指定してください。
+
+```html
+<meta name="format-detection" content="telephone=no" />
+```
+
+
+### Twitter カード と OGP
+
+SNSへのシェア時に表示される情報を設定してください。
+なお、`og:type` は、ページの種類に応じて `website` または `article` などの種類を適切に指定し、`og:type` に合わせた追加情報（ `article:published_time` や `article:author` など）も設定してください。
+
+```html
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@twitter" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="PageTitle | SiteName" />
+<meta property="og:description" content="DescriptionText…" />
+<meta property="og:image" content="https://example.com/assets/images/ogp.png" />
+<meta property="og:site_name" content="SiteName" />
+<meta property="og:image" content="/assets/images/ogp.png" />
+```
+
+::: warning OGP画像のURL
+`og:image` は、相対URLでは認識しないSNSもあるため、絶対URLで指定してください。
+:::
+
+::: info 教材
+詳細は「本気で始めるHTML入門」→「Lesson14 ページの情報」→「Chapter2 SNSの共有情報を設定」を参照してください。
+:::
+
+
+### その他
+
+以下は、基本的に必要ありませんが、指示があった場合などは、必要に応じて追加してください。
+
+
+#### keywords
+
+特別な理由で使用する場合はページの内容に関連したキーワードを 5 個程度で記述してください。
 
 ```html
 <meta name="keywords" content="レスポンシブWebデザイン,スマートフォンサイト,Web制作,大阪,Sample Company" />
 ```
 
-### author メタタグ
+#### author
 
-無理には利用する必要ありませんが、使用する場合は humans.txt を作成し、読み込ませてください。
+特別な理由で使用する場合は humans.txt を作成し、読み込ませてください。
 
 ```html
-<meta name="author" content="humans.txt" />
+<meta name="author" content="/humans.txt" />
 ```
 
 
 ## CSS ファイルの読み込み
 
-CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを読み込んでください。
+外部ファイル化したCSS（SCSS）を `<link>` で読み込んでください。
 
-※CSS を HTML に直接記述する Inline CSS は、カスタムプロパティの定義を除き、原則禁止します。
+なお、`style` 属性にスタイルを記述する Inline CSS は、カスタムプロパティの定義を除き、原則禁止します。
 
-```html
+
+::: code-group
+```html [CSS]
 <link rel="stylesheet" href="/assets/styles/global.css" />
 ```
 
+```html [SCSS]
+<link rel="stylesheet" href="/assets/styles/global.scss" />
+```
+:::
+
+::: tip Astro環境の場合
+[Astro](https://astro.build/) 環境の場合は、グローバルで利用するスタイルは外部ファイル化し、レイアウトファイルのフロントマターに `import` で読み込み、レイアウトやコンポーネント固有のスタイルは、`<style>` 要素にCSSを記述してください。
+
+
+```astro [Astro]
+---
+import "@styles/global.css"; // SCSSの場合は .scss
+---
+```
+:::
+
+
+
+
+
+
+
+
+
+
+
+
 ## JavaScript ファイルの読み込み
+[Astro](https://astro.build/) 環境を除き、メインとなる JavaScript（TypeScript） ファイルを `type="module"` を指定した `<script>` で、読み込んでください。
+
+::: code-group
+```html [JavaScript]
+<script type="module" src="/assets/scripts/main.js"></script>
+```
+
+```html [TypeScript]
+<script type="module" src="/assets/scripts/main.ts"></script>
+```
+:::
+
+
 原則、JavaScriptライブラリはHTMLに読み込まず、JavaScriptファイル内に `import` で読み込んでください。
 
 `import` を利用せず直接HTMLにライブラリを読み込む必要がある場合は、依存関係の読み込み順に考慮しつつ、
@@ -191,14 +346,14 @@ CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを�
 ```
 
 
-::: warning
+::: warning CDNは利用せずセルフホスト可能にする
 原則 jQuery やその他ライブラリなどを利用する際は、パッケージマネージャーでインストールするなど、セルフホストが可能な状態で利用してください。やむを得ずCDNで読み込む必要がある場合は、軽量化（ミニファイ）されたものを読み込んでください。
 :::
 
 
 
 
-::: tip
+::: tip トラッキングコードやSNSの埋め込みコード
 アクセス解析のトラッキングコードや、SNSの埋め込みコードに関しては、インラインで記述しても構いません。
 
 ```html
@@ -214,6 +369,9 @@ CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを�
 ```
 
 :::
+
+
+
 
 
 
@@ -246,7 +404,7 @@ CSS は全て外部ファイル化し、`<link>` タグで CSS ファイルを�
 ```
 
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson13 セクションとグルーピング」→「Chapter2 基本構造の要素」を参照してください。
 :::
 
@@ -285,7 +443,7 @@ CMSなどによる投稿されたコンテンツを除き、セクショニン�
 ```
 
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson13 セクションとグルーピング」→「Chapter1 セクショニング関連の要素」を参照してください。
 :::
 
@@ -332,26 +490,6 @@ CMSなどによる投稿されたコンテンツを除き、セクショニン�
 ```
 
 
-## HTML 特殊文字
-
-HTML の特殊文字は名前付き文字参照で記述してください。
-
-■ 例
-
-```html
-<!-- 🙅‍♂️ 悪い例 -->
-&、<、>、"、'
-
-<!-- 🙆‍♀️ 良い例 -->
-&amp;、&lt;、&gt;、&quot;, &apos;
-```
-
-
-
-::: info
-詳細は「本気で始めるHTML入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter2 特殊な記述が必要な要素」を参照してください。
-:::
-
 
 ## 改行
 文の分割が重要な箇所（詩など）を除き、`br` 要素による改行は原則禁止します。
@@ -365,7 +503,7 @@ HTML の特殊文字は名前付き文字参照で記述してください。
 <p>架空会社Dummy Creationsは、<time datetime="2023-04-01">2023年4月1日</time>に<wbr>架空 太郎によって設立されました。</p>
 ```
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter3 改行を表す」と、「本気で始めるCSS入門」→「Lesson5 縦書きと折り返し」を参照してください。
 :::
 
@@ -377,7 +515,6 @@ HTML の特殊文字は名前付き文字参照で記述してください。
 
 なお、各ディレクトリ内の「index.html」へのリンクは、ファイル名を省略してください。
 
-■ 例
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -400,7 +537,7 @@ HTML の特殊文字は名前付き文字参照で記述してください。
 <a href="https://shibajuku.net/about/" target="_blank">Shibajuku（新しいタブで開きます）</a>
 ```
 
-::: tip
+::: tip 外部リンクの注意点
 必要に応じて `target="_blank"` や `rel="noreferrer"` 属性を指定してください。
 `target="_blank"` を指定した際、`rel`属性に、`noopener` は不要です。
 また、`target="_blank"` を指定した際は、新しいタブやウインドウで開かれることがユーザーに伝わるようにしてください。
@@ -432,17 +569,9 @@ HTML の特殊文字は名前付き文字参照で記述してください。
 </section>
 ```
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson5 ハイパーリンク」を参照してください。
 :::
-
-## id属性
-
-`id`属性は、コンテンツの内容を表した適切な固有名で指定してください。
-可能であれば、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）には、ページ内リンクを指定しない場合でも `id`属性を指定し、ユーザーがコンテンツにリンクを指定できるように備えてください。
-
-なお、サイト公開後は、外部からコンテンツへのリンクさている可能性を考慮し、安易に `id`属性の値を変更または削除しないでください。
-
 
 ## 画像
 パフォーマンスを考慮し、最適な画像形式、サイズで表示されるようにしてください。
@@ -530,7 +659,7 @@ JPEG、PNG形式の画像は圧縮を行ってください。
 <p>当店のコーヒー豆は、<img src="images/logo-dummy-company.svg" alt=""> Dummy Company さんから仕入れています。</p>
 ```
 
-::: tip
+::: tip 代替テキストの考察
 代替テキストは、デザイン時点で決定することが理想です。
 :::
 
@@ -561,9 +690,20 @@ SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、
 ```
 
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson6 画像関連の要素」を参照してください。
 :::
+
+
+
+## id属性
+
+`id`属性は、コンテンツの内容を表した適切な固有名で指定してください。
+可能であれば、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）には、ページ内リンクを指定しない場合でも `id`属性を指定し、ユーザーがコンテンツにリンクを指定できるように備えてください。
+
+なお、サイト公開後は、外部からコンテンツへのリンクさている可能性を考慮し、安易に `id`属性の値を変更または削除しないでください。
+
+
 
 ## コメント
 `div` 要素は、終了タグの次の行にコメントを記述するようにしてください。
@@ -593,12 +733,12 @@ SVGなどのベクター形式の画像を除き、`srcset`属性を用いて、
 原則、アコーディオンメニューのような開閉式ウィジェットは、`details` 要素と `summary` 要素を用いて実装し、モーダルウインドウのようなダイアログボックスは、 `button` 要素と、`dialog` 要素を用いて実装してください。
 
 
-::: tip
+::: tip popover属性
 モーダレスのダイアログには `popover` 属性を活用してください。
 :::
 
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson12 インタラクティブ要素」を参照してください。
 :::
 
@@ -657,7 +797,7 @@ HTML標準の属性で状態を示せる場合は標準の属性を使用して�
 
 
 
-::: info
+::: info 教材
 詳細は「本気で始めるHTML入門」→「Lesson10 フォーム関連の要素 – 前編 –」と「Lesson11 フォーム関連の要素 – 後編 –」を参照してください。
 :::
 
