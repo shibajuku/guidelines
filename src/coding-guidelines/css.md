@@ -7,31 +7,42 @@
 1. `@charset` の記述は `UTF-8` を設定する
 2. Inline CSS は、原則としてカスタムプロパティの定義を除き禁止する
 3. `!important`は、緊急性がある時のみ許容する
-4. 引用符はダブルクォート（`"`）を利用する
-5. フォーカス可能な要素は、`:focus-visible` などを利用してフォーカスを可視化する
+4. 引用符はダブルクォート（`"`）を使用する
+5. フォーカス可能な要素は、`:focus-visible` などを使用してフォーカスを可視化する
 6. 不必要なアニメーションは避け、ユーザビリティを考慮する。
-7. OSの「視差効果を減らす」オプションを有効にしてるユーザーには、`prefers-reduced-motion` を利用し、アニメーションを制御する。
+7. OS の「視差効果を減らす」オプションを有効にしてるユーザーには、`prefers-reduced-motion` を使用し、アニメーションを制御する。
 8. [Biome](https://biomejs.dev/ja/) によるコードフォーマットと解析を行い、エラーに対応する
 
+## CSS フレームワーク
 
+[Tailwind CSS](https://tailwindcss.com/) や [Panda](https://panda-css.com/) などのユーティリティーファストなフレームワークは、許可がある場合か、指示がある時のみ使用してください。
 
-## CSS プリプロセッサー
-将来性を考慮し、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [PostCSS](https://postcss.org/) を使い、CSSWG ドラフトに対応した、ピュアな CSS による開発を推奨します。
-ただし、Sass を利用した制作環境に従事することにも考慮し、Sass を使った開発も許容します。
+なお、チームで開発する場合は、チームのコーディングメンバーが、これらの学習を終えているかを確認し、学習を終えていないメンバーがいる場合には、サポートをしながら使用するか、使用を控えてください。
 
-Sass を利用する場合は、 `sass-embedded` パッケージを利用してコンパイルしてください。
+また、ユーティリティーファストなフレームワークを使用する場合、本ガイドラインは意味をなしません。
 
-::: tip Orelop環境の場合
-Orelop 環境の場合は、インストール時のオプションで「Sass」を選択することで、`sass-embedded` が利用できます。
+::: tip Orelop 環境の場合
+Orelop 環境の場合は、インストール時のオプションで「Tailwind CSS」を選択することで、Tailwind CSS のインストールと初期設定が完了します。
 :::
 
+## CSS プリプロセッサー
+
+将来性を考慮し、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [PostCSS](https://postcss.org/) を使い、CSSWG ドラフトに対応した、ピュアな CSS による開発を推奨します。
+ただし、Sass を使用した制作環境に従事することにも考慮し、Sass を使った開発も許容します。
+
+Sass を使用する場合は、 `sass-embedded` パッケージを使用してコンパイルしてください。
+
+::: tip Orelop 環境の場合
+Orelop 環境の場合は、インストール時のオプションで「Sass」を選択することで、`sass-embedded` が使用できます。
+:::
 
 ## ファイル構成
 
-CSS ファイルは、各役割ごとに分割し、CSSレイヤーごとのディレクトリに保存してください。
+CSS ファイルは、各役割ごとに分割し、CSS レイヤーごとのディレクトリに保存してください。
 
 ### 開発ディレクトリ
-```txt
+
+```
 📂 styles
 ├── 📂 settings
 │    └── valiables.css
@@ -55,14 +66,14 @@ CSS ファイルは、各役割ごとに分割し、CSSレイヤーごとのデ�
 
 [Astro](https://astro.build/) 環境を除き、ビルド後の CSS ファイルは、`global-ハッシュ値.css` にまとめてください。
 
-```txt
+```
 📂 dist
 └── 📂 assets
      └── 📂 styles
           └── global-ハッシュ値.css
 ```
 
-::: info Orelop環境の場合
+::: info Orelop 環境の場合
 Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` にまとめられます。
 :::
 
@@ -70,19 +81,18 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 
 ## レイヤーとインポート
 
-`@layer` を用いて、以下のCSSレイヤーを定義し、該当するレイヤーにスタイルを追加してください。
+`@layer` を用いて、以下の CSS レイヤーを定義し、該当するレイヤーにスタイルを追加してください。
 
-1. `settings` - カスタムプロパティの設定
-2. `base` - リセットCSSやベーススタイル
-3. `layouts` - レイアウトに関するスタイル
-4. `vendors` - ライブラリやフレームワークのスタイル
-5. `components` - ページを構成する再利用可能なパーツのスタイル
-6. `utilities` - 僅かなスタイル調整用のスタイル
+| レイヤー名   | 該当するスタイル                                    |
+| ------------ | --------------------------------------------------- |
+| `settings`   | グローバルなカスタムプロパティの設定                |
+| `base`       | リセットなどのブラウザの CSS 調整やベースのスタイル |
+| `layouts`    | レイアウトに関するスタイル                          |
+| `vendors`    | ライブラリやフレームワークのスタイル                |
+| `components` | ページを構成する再利用可能なパーツのスタイル        |
+| `utilities`  | 僅かなスタイル調整用のスタイル                      |
 
-
-
-
-なお、`global.css` には直接スタイルを記述せず、各役割ごとに分割したCSSファイルを、レイヤーごとに `@import` で読み込んでください。
+なお、`global.css` には直接スタイルを記述せず、各役割ごとに分割した CSS ファイルを、レイヤーごとに `@import` で読み込んでください。
 
 ```css
 @layer settings, base, layouts, vendors, components, utilities;
@@ -119,12 +129,11 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 @import "utilities/display.css" layer(utilities);
 ```
 
-
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson 26 インポートとカスケードレイヤー」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson 26 インポートとカスケードレイヤー」を参照
 :::
 
-[Astro](https://astro.build/) 環境においての、レイアウト や コンポーネントのスタイルは、 `.astro` ファイル内の `style` 要素にスコープして記述してください。ただし、グローバルに利用するスタイルに関しては、上記のようにCSSファイルで管理し `global.css` に読み込んでください。
+[Astro](https://astro.build/) 環境においての、レイアウト や コンポーネントのスタイルは、 `.astro` ファイル内の `style` 要素にスコープして記述してください。ただし、グローバルに利用するスタイルに関しては、上記のように CSS ファイルで管理し `global.css` に読み込んでください。
 
 ```astro
 <style>
@@ -136,20 +145,17 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 </style>
 ```
 
-
 ::: info 教材
-詳細は「静的サイトジェネレーター Astro 講座」を参照してください。
+詳細は「静的サイトジェネレーター Astro 講座」を参照
 :::
-
-
 
 ## セレクタの選定
 
 セレクタは予測性、再利用性、保守性、拡張性を意識し、以下のルールで指定してください。
 
 1. セレクタは原則としてクラスセレクタを使用する。
-2. IDセレクタは使用しない。
-3. 状態の管理は動的擬似クラスやUI要素状態擬似クラス、または属性セレクタを使用する。
+2. ID セレクタは使用しない。
+3. 状態の管理は動的擬似クラスや UI 要素状態擬似クラス、または属性セレクタを使用する。
 4. ユニバーサルセレクタ（ `*` ）やタイプセレクタ（ `p`, `div` など ）は必要性がなければ安易に使わない。
 5. 詳細度は不必要に上げず、低く保つ。
 6. 再利用できる用に不必要なネスト化はしない。
@@ -177,7 +183,6 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
   }
 }
 
-
 /* 特定のブロックの子要素のみに共通のスタイルを適用する例 */
 .c-stack {
   display: block grid;
@@ -204,7 +209,6 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
   color: var(--color-dark);
 }
 
-
 /* 特定のブロック内の子孫で、配置できる要素が明確な場合 */
 .c-nav-global {
   & :where(li) {
@@ -215,7 +219,7 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 
 ### 状態管理
 
-状態管理は クラスセレクタ（ `is-*` など）を使用せず、動的擬似クラス（`:hover` や `:focus-visble` など）、UI要素状態擬似クラス（`:checked` や `:disabled` など）、属性セレクタ（ `[open]` や `[aria-*]` 、`[data-*]` など）を使用してください。
+状態管理は クラスセレクタ（ `is-*` など）を使用せず、動的擬似クラス（`:hover` や `:focus-visble` など）、UI 要素状態擬似クラス（`:checked` や `:disabled` など）、属性セレクタ（ `[open]` や `[aria-*]` 、`[data-*]` など）を使用してください。
 
 ```css
 .c-button:hover,
@@ -234,21 +238,19 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 ```
 
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson9 セレクタと詳細度」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson9 セレクタと詳細度」を参照
 :::
-
 
 ## クラス名
 
 クラス名は BEM システムのシンタックスである、Block、Element、Modifier に分類して構成される [MindBEMding](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) のアイデアを基本的に採用します。
-
 
 ```css
 .c-card {
   display: block grid;
   grid-template-rows: subgrid;
   grid-row: span 3;
- }
+}
 
 .c-card__body {
   padding: calc(24 * var(--torem));
@@ -259,8 +261,7 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 }
 ```
 
-
-ただし、Modifier には原則クラスセレクタを利用せず、[状態管理](#%E7%8A%B6%E6%85%8B%E7%AE%A1%E7%90%86) のルールに基づいて、動的擬似クラスやUI要素状態擬似クラス、または属性セレクタを使用してください。
+ただし、Modifier には原則クラスセレクタを使用せず、[状態管理](#%E7%8A%B6%E6%85%8B%E7%AE%A1%E7%90%86) のルールに基づいて、動的擬似クラスや UI 要素状態擬似クラス、または属性セレクタを使用してください。
 
 また、影響範囲が明確な場合は、親 Block または、親 Element に定義されたカスタムプロパティの継承によって、スタイルを変化させる方法も許容します。
 
@@ -278,10 +279,7 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 }
 ```
 
-
-
-
-やむを得ず、クラスセレクタを利用する場合は、Block、Element を省略し「`-modifier`」のようにハイフンひとつを接頭辞としても構いません。
+やむを得ず、クラスセレクタを使用する場合は、Block、Element を省略し「`-modifier`」のようにハイフンひとつを接頭辞としても構いません。
 
 ただし、プロジェクト内で統一してください。
 
@@ -291,21 +289,17 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 .c-button.-small { … }
 ```
 
-
 ### 接頭辞
 
 各スタイルは役割を明確にするために、レイヤーに合わせて接頭辞を設けることを推奨します。
 
-| 種類                  | 接頭辞 |
-| :-------------------- | :----- |
-| Layouts レイヤー       | `l-`   |
-| Components レイヤー    | `c-`   |
-| Utilities レイヤー      | `u-`   |
-
+| 種類                | 接頭辞 |
+| :------------------ | :----- |
+| Layouts レイヤー    | `l-`   |
+| Components レイヤー | `c-`   |
+| Utilities レイヤー  | `u-`   |
 
 なお、ブロック名やエレメント名、モディファイア名はケバブケースでの命名を行ってください。
-
-
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -316,9 +310,8 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 ```
 
 ::: info 教材
-詳細は「カオスにならないCSSを書くためのCSS設計 講座」 を参照してください。
+詳細は「カオスにならない CSS を書くための CSS 設計 講座」 を参照
 :::
-
 
 ## プロパティの指定順序
 
@@ -326,30 +319,29 @@ CSS のプロパティの記述順を以下の順番になるようにしてく�
 
 1. カスタムプロパティの定義
 
-    `--container-max-size`、`--grid-cols` など
+   `--container-max-size`、`--grid-cols` など
 
 2. ボックスの表示とポジションに関わるプロパティ
 
-    `display`、`position`、`inset`、`z-index`、`inline-size`、`block-size` など
+   `display`、`position`、`inset`、`z-index`、`inline-size`、`block-size` など
 
 3. ボーダーに関わるプロパティ
 
-    `border`、`border-image`、`border-radius` など
+   `border`、`border-image`、`border-radius` など
 
 4. 背景関係に関わるプロパティ
 
-    `background-color`、`background-image`、`background-size`、`background-position` など
+   `background-color`、`background-image`、`background-size`、`background-position` など
 
 5. 文字の体裁やフォントに関わるプロパティ
 
-    `font-family`、`color`、`text-align`、`text-decoration`、`vertical-align`、`white-space` など
+   `font-family`、`color`、`text-align`、`text-decoration`、`vertical-align`、`white-space` など
 
 6. その他のプロパティ
 
-    `animation`、`transition` など
+   `animation`、`transition` など
 
 ※上記 6 つのブロックが確立されていれば、その中でのプロパティの順番は問いません。
-
 
 ::: tip Orelop 環境の場合
 Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自動で並び変わります。
@@ -357,18 +349,17 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 
 ## ベンダープレフィックス
 
-ベンダープレフィックスは、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [autoprefixer](https://www.npmjs.com/package/autoprefixer) を利用し自動で付与するため手動で記述しないでください。
+ベンダープレフィックスは、[Lightning CSS](https://lightningcss.dev/)、または [autoprefixer](https://www.npmjs.com/package/autoprefixer) によって自動で付与するため手動で記述しないでください。
 
-なお、ベンダープレフィックスは以下の順番で宣言されます。
+ただし、CSS の標準ではないプロパティにおいては手動でベンダープレフィックスを付与する必要があります。
+
+その際、ベンダープレフィックスは以下の順番で記述してください。
 
 1. `-webkit-`
 2. `-moz-`
 3. `-ms-`
 4. `-o-`
 5. ベンダープレフィックスなしのプロパティ
-
-
-ただし、CSSの標準ではないプロパティにおいては手動でベンダープレフィックスを付与してください。
 
 ```css
 :where(html) {
@@ -377,21 +368,20 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 }
 ```
 
-
-
 ## ショートハンドの使い方
 
-ショートハンドによる指定は許容しますが、以下のルールに従って使用してください。
+ショートハンドによる指定も許容しますが、以下のルールに従って使用してください。
 
-- 親要素のスタイルが継承されるプロパティでは使用しない。
-- 値が一つの場合は使用しない。
-- `font` のショートハンドは使用しない。
+- 親要素のスタイルが継承されるプロパティでは使用しない
+- `font` のショートハンドは使用しない
 
+```css
+.c-button {
+  border: 1px solid;
+}
+```
 
 ## 値の指定
-
-
-
 
 ### 単位の省略
 
@@ -403,20 +393,9 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 }
 ```
 
-ただし、`0.5` などのように、小数点以下の値が存在する場合は `0` を省略しないでください。
-
-```css
-.c-heading {
-  letter-spacing: 0.5em;
-}
-```
-
-::: tip Orelop 環境の場合
-Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動で解決します。
-:::
-
 ### 文字サイズに応じて可変
-ブラウザの文字サイズ変更機能などによって文字サイズに応じて可変した方が良い箇所では、文字サイズによる相対的な長さの単位（`rem` や `em` など）を利用してください。
+
+ブラウザの文字サイズ変更機能などによって文字サイズに応じて可変した方が良い箇所では、文字サイズによる相対的な長さの単位（`rem` や `em` など）を使用してください。
 
 - `font-size`
 - `leter-spacing` (`em` を推奨)
@@ -424,12 +403,11 @@ Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動�
 
 などがこれに該当します。
 
-なお、`clamp()` を利用する場合の推奨値にも、`rem` を組みわせて指定してください。
-
+なお、`clamp()` を使用する場合の推奨値にも、`rem` を組みわせて指定してください。
 
 ```css
 .l-spacer {
-  margin-block-start: clamp(2.5rem, 1.9718rem + 2.2535vi, 4rem);;
+  margin-block-start: clamp(2.5rem, 1.9718rem + 2.2535vi, 4rem);
 }
 
 .c-heading {
@@ -437,6 +415,23 @@ Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動�
   letter-spacing: 0.25em;
 }
 ```
+
+::: tip Orelop 環境の場合
+Orelop 環境の場合は、`fluid()` というオリジナル関数を使用して推奨値の自動計算ができます。
+
+```css
+/* 開発時 */
+.l-spacer {
+  margin-block-start: fluid(40px, 64px);
+}
+
+/* ビルド時 */
+.l-spacer {
+  margin-block-start: clamp(2.5rem, 1.9718rem + 2.2535vi, 4rem);
+}
+```
+
+:::
 
 また、予測性をや保守性を考慮して、可能な限り、`rem` 値などを直接指定せず、`calc()` を使って `px` を `rem` に変換する式で指定してください。
 
@@ -450,15 +445,13 @@ Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動�
 }
 ```
 
-
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」と「Lesson24 関数」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」と「Lesson24 関数」を参照
 :::
 
 ### line-height
 
 `line-height` は原則単位なしの数値でしてください。
-
 
 ```css
 .c-heading {
@@ -467,7 +460,7 @@ Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動�
 ```
 
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson3 フォント関連のプロパティ – 後編 –」 → 「Chapter3 行の高さ」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson3 フォント関連のプロパティ – 後編 –」 → 「Chapter3 行の高さ」を参照
 :::
 
 ### font-weight
@@ -479,15 +472,14 @@ Orelop 環境の場合は、[Biome](https://biomejs.dev/ja/) によって自動�
   font-weight: 700;
 }
 ```
+
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」 → 「Chapter3 文字の太さ」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」 → 「Chapter3 文字の太さ」を参照
 :::
 
 ### background-image と border-image
 
-
-JPEG、または PNG 形式の画像を利用する場合は、 `image-set()` 関数を使ってRetina Display などの高解像ディスプレイへの対応を行ってください。
-
+JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` 関数を使って Retina Display などの高解像ディスプレイへの対応を行ってください。
 
 ```css
 :where(body) {
@@ -499,31 +491,24 @@ JPEG、または PNG 形式の画像を利用する場合は、 `image-set()` �
 ```
 
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson7 背景画像と背景の一括指定」 → 「Chapter1 背景画像」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson7 背景画像と背景の一括指定」 → 「Chapter1 背景画像」を参照
 :::
-
 
 ## レスポンシブ対応
 
 モバイルデバイス対応についてはレスポンシブ Web デザインを採用します。
 
-
-
-
 ### メディアクエリ
 
 メディアクエリを使ってレスポンシブ対応を行う場合は、以下のブレークポイントを基本とした、カスタムメディアクエリを定義し、ビューポート幅が、`375px` 〜 `1920px` までの間でレイアウトが崩れないように調整してください。
 
-
-
-| サイズ | 値 | ブレークポイント |
-| :----- | :--- | :--------------- |
-| `--sm`  | `width >= 36rem`   | `576px`          |
-| `--md`  | `width >= 48rem`   | `768px`          |
-| `--lg`   | `width >= 64rem`  | `1024px`          |
-| `--xl`  | `width >= 80rem`   | `1280px`         |
-| `--xxl`  | `width >= 96rem`  | `1536px`         |
-
+| サイズ  | 値               | ブレークポイント |
+| :------ | :--------------- | :--------------- |
+| `--sm`  | `width >= 36rem` | `576px`          |
+| `--md`  | `width >= 48rem` | `768px`          |
+| `--lg`  | `width >= 64rem` | `1024px`         |
+| `--xl`  | `width >= 80rem` | `1280px`         |
+| `--xxl` | `width >= 96rem` | `1536px`         |
 
 ```css
 @custom-media --sm (width >= 36rem);
@@ -541,7 +526,7 @@ JPEG、または PNG 形式の画像を利用する場合は、 `image-set()` �
 }
 ```
 
-ビルド後は以下のCSSが出力されます。
+ビルド後は [Lightning CSS](https://lightningcss.dev/)、または [PostCSS](https://postcss.org/) によって、以下の CSS が出力されます。
 
 ```css
 @media (min-width: 576px) {
@@ -558,7 +543,7 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 :::
 
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson 23 メディアクエリ」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson 23 メディアクエリ」を参照
 :::
 
 ### コンテナークエリ
@@ -567,7 +552,7 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 
 ```css
 .l-container {
-  container: container / inline-size
+  container: container / inline-size;
 }
 
 .l-grid {
@@ -589,12 +574,14 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 ```
 
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson 27 コンテナークエリ」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson 27 コンテナークエリ」を参照
 :::
 
 ## スタイルのネスト
 
 スタイルは、[CSS nesting](https://drafts.csswg.org/css-nesting-1/) を活用して記述してください。
+
+ビルド時に、[Lightning CSS](https://lightningcss.dev/)、または [PostCSS](https://postcss.org/) によって、ネスト構造を必要に応じて解除します。
 
 ネストする際の記述順序は以下の通りです。
 
@@ -602,17 +589,16 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 2. 要素のメディアクエリ または、コンテナークエリ
 3. 擬似要素
 4. 擬似クラス
-    1. 動的擬似クラス
-    2. UI要素状態擬似クラス
-    3. 構造擬似クラス
+   1. 動的擬似クラス
+   2. UI 要素状態擬似クラス
+   3. 構造擬似クラス
 5. 結合子
-    1. 次兄弟（`+`）
-    2. 後続兄弟（`~`）
-    3. 子（`>`）
-    4. 子孫
+   1. 次兄弟（`+`）
+   2. 後続兄弟（`~`）
+   3. 子（`>`）
+   4. 子孫
 
-
-上記、3以降のセレクタ内にも、メディアクエリ または、コンテナークエリのネストを許容しますが、ネストが深くなりすぎないように注意してください。
+上記、3 以降のセレクタ内にも、メディアクエリ または、コンテナークエリのネストを許容しますが、ネストが深くなりすぎないように注意してください。
 
 ```css
 .c-button {
@@ -655,7 +641,7 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 
   /*   5-2. 後続兄弟 */
   & ~ & {
-   color: var(--color-green);
+    color: var(--color-green);
   }
 
   /*   5-3. 子 */
@@ -668,11 +654,12 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
     font-size: 0.8em;
   }
 }
-
 ```
 
+詳細度は低い順に並べ、詳細度が高いセレクターが詳細度の低いセレクターより上に記述されないようにしてください。
+
 ::: info 教材
-詳細は「本気で始めるCSS入門」 → 「Lesson9 セレクタと詳細度」と「Lesson 25 ネスティングルール」を参照してください。
+詳細は「本気で始める CSS 入門」 → 「Lesson9 セレクタと詳細度」と「Lesson 25 ネスティングルール」を参照
 :::
 
 ## コメント
@@ -680,7 +667,6 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 必要に応じて、コードの意図や構造を説明するコメントを記述してください。
 
 コメントは、検索性を考慮し、Block、Element、Modifier に対して、それぞれ異なる装飾のルールでコメントを記述してください。
-
 
 ```css
 /* ============================================
@@ -690,7 +676,6 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 /*
   Element
 ————————————————————————————————————————— */
-
 
 /* Modifire */
 ```
