@@ -17,6 +17,7 @@ export default defineConfig({
           { text: "HTML ガイドライン", link: "/coding-guidelines/html" },
           { text: "CSS ガイドライン", link: "/coding-guidelines/css" },
           { text: "JavaScript ガイドライン", link: "/coding-guidelines/javascript" },
+          { text: "Git ガイドライン", link: "/coding-guidelines/git" },
           { text: "命名規則", link: "/coding-guidelines/naming" },
           { text: "品質管理", link: "/coding-guidelines/quality" },
         ],
