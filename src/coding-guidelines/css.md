@@ -1,6 +1,6 @@
 # CSS ガイドライン
 
-品質の確保と、予測性、再利用性、保守性、拡張性を向上することを目的に、以下のガイドラインに則ったコーディングを行ってください
+品質の確保と、予測性、再利用性、保守性、拡張性を向上することを目的に、以下のガイドラインに則ったコーディングを行ってください。
 
 ## 基本ルール
 
@@ -10,8 +10,7 @@
 4. 引用符はダブルクォート（`"`）を使用する
 5. フォーカス可能な要素は、`:focus-visible` などを使用してフォーカスを可視化する
 6. 不必要なアニメーションは避け、ユーザビリティを考慮する。
-7. OS の「視差効果を減らす」オプションを有効にしてるユーザーには、`prefers-reduced-motion` を使用し、アニメーションを制御する。
-8. [Biome](https://biomejs.dev/ja/) によるコードフォーマットと解析を行い、エラーに対応する
+7. [Biome](https://biomejs.dev/ja/) によるコードフォーマットと解析を行い、エラーに対応する
 
 ## CSS フレームワーク
 
@@ -679,3 +678,60 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 
 /* Modifire */
 ```
+
+## アクセシビリティ
+
+[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4 つの基本原則（知覚可能、操作可能、理解可能、堅牢性）をもとに、AA の準拠を目指したコーディングを心がけてください。
+
+### スクリーンリーダー用のテキスト
+
+スクリーンリーダー用のテキストを視覚的に非表示にする場合は、以下の CSS を活用してください。
+`display: none` や `visibility: hidden` は、アクセシビリティツリーから削除されます。
+
+```css
+:where(.visually-hidden:not(:focus-within, :active)) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  border: 0 !important;
+}
+```
+
+::: tip Orelop の場合
+Orelop 環境の場合は、内包しているリセット用の CSS に上記のクラスが含まれています。
+:::
+
+### OS の「視差効果を減らす」オプション
+
+ユーザーの中には、OS の「視差効果を減らす」オプションを有効にしている方もいます。
+
+このオプションを有効にしているユーザーに過度なアニメーションを提供しないようにしてください。
+
+以下のような CSS で、「視差効果を減らす」オプションを有効にしているユーザーにアニメーションを実行しないようにできます。
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after,
+  ::backdrop {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: unset !important;
+    transition-delay: unset !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    view-transition-name: none !important;
+  }
+}
+```
+
+::: tip Orelop の場合
+Orelop 環境の場合は、内包しているリセット用の CSS に上記の CSS が含まれています。
+:::

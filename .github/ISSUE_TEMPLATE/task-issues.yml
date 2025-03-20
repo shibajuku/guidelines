@@ -1,10 +1,10 @@
 name: タスクの追加
 description: 新たなタスクを追加します。
-title: ""
+title: "Task: "
 type: Task
 body:
   - type: textarea
-    id: overview
+    id: task
     attributes:
       label: 作業内容
       description: |
