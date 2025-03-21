@@ -1,15 +1,13 @@
 # 基本仕様
 
-本ガイドラインは、Shibajuku 内のプロジェクトや課題でコーディングする際の記述ルールなどを定めたものです。
-
-固く感じるかもしれませんが、品質の確保や拡張性、メンテナンス性の向上を目的として、本ガイドラインに則ったコーディングを行ってください。
-
-あくまで、学習目的であり実際のお仕事ではありませんので、気軽に取り組んでもらえたらと思います。
-
-ガイドライン上わからない箇所は、いつでもご質問ください。
-最終的なコードレビューもさせて頂きます。
+本ガイドラインは、[Shibajuku](http://shibajuku.net/) 内のプロジェクトや課題でコーディングする際の記述ルールなどを定めたものです。品質の確保や拡張性、メンテナンス性の向上を目的として、本ガイドラインに則ったコーディングを行ってください。
 
 なお、プロジェクトに独自のガイドラインやコーディングの指示がある場合にはそちらを優先してください。
+
+::: info 💡 学習目的のガイドライン
+固く感じるかもしれませんが、あくまで学習目的のガイドラインのため、気軽に取り組んでもらえたらと思います 。
+ガイドライン上わからない箇所は、いつでも Discord でご質問ください。コードレビューもさせて頂きます。
+:::
 
 ## 対応ブラウザ
 
@@ -30,7 +28,7 @@
 - iOS Safari
 - Android Chrome
 
-::: info 対応バージョン
+::: info 🌍 対応バージョン
 指示がない場合、サイト構築時点で 0.5% 以上シェアがある最新 2 バージョンに対応してください。
 :::
 
@@ -84,7 +82,7 @@ pnpm create orelop@latest
 
 :::
 
-::: info 教材
+::: info 📖 教材
 詳細は「静的サイト開発環境「Orelop」 講座」を参照
 :::
 
@@ -96,7 +94,7 @@ pnpm create orelop@latest
 
 ##### CSS トランスフォーマー
 
-CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [PostCSS](https://postcss.org/) を利用し、ベンダープレフィックスの付与や `@import` の解決、CSSWG ドラフト（[CSS nesting](https://drafts.csswg.org/css-nesting-1/) など）のトランスパイルや圧縮を行ってください。
+CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Autoprefixer](https://www.npmjs.com/package/autoprefixer) と [PostCSS](https://postcss.org/) の [PostCSS Preset Env](https://www.npmjs.com/package/postcss-preset-env)などを利用し、ベンダープレフィックスの付与や `@import` の解決、CSSWG ドラフト（[CSS nesting](https://drafts.csswg.org/css-nesting-1/) など）のトランスパイルや圧縮を行ってください。
 
 ##### フォーマッターとリンター
 
@@ -273,6 +271,10 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Po
 - [CSS ガイドライン](./css.html)
 - [JavaScript ガイドライン](./javascript.html)
 
+## アクセシビリティ
+
+[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4 つの基本原則（知覚可能、操作可能、理解可能、堅牢性）をもとに、AA の準拠を目指したコーディングを心がけてください。
+
 ## バージョン管理
 
 Git によるバージョン管理を行い、リモートリポジトリは [GitHub](https://github.com/) を利用します。
@@ -291,6 +293,6 @@ FTP クライアント（ [filezilla](https://filezilla-project.org/) や [Cyber
 
 SFTP（推奨） や FTPS を利用しくてださい。
 
-::: info 教材
+::: info 📖 教材
 詳細は「インターネット・アーキテクチャ 講座」 → 「Lesson6 アプリケーション層」を参照
 :::

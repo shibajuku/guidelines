@@ -1,75 +1,137 @@
 # 品質管理
 
-以下のツールを利用してチェックを行ってください。
+品質の確保を目的に、コーディング時やサイトの公開前に、以下の確認を行ってください。
 
-## HTML
+## 基本ルール
 
-### **W3C Markup Validation Service**
+以下の心構えで実装することを基本ルールとします。
 
-[Markup Validation Service](http://validator.w3.org/)
+- デザイン担当者としっかりとコミュニケーションを取る
+- デザインの意図を汲み取りデザインを昇華させる
+- どのようなブラウザサイズでも美しくみえるように細部までこだわる
+- 自己満足なアニメーションやインタラクションを作らない
+- 様々な状況を想像し、利用できない（しずらい）状態がないように配慮する
+- 他のコーディングメンバーが見ても理解しやすくメンテナンスしやすいコードを書く
+- ユーザーやデザイン担当者、チームメンバーの笑顔やワクワクを想像しながら実装する
 
-コンバージョンタグなど計測タグによるエラー及びサイトの構成上修正できないエラーは許容範囲とします。
 
-## CSS
+## リンターによる検証
 
-StyleLintが使える環境の場合は「StyleLint」による文法チェックを行ってください。
+開発中は [Markuplint](https://marketplace.visualstudio.com/items?itemName=yusukehirao.vscode-markuplint) や、 [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) 、[Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) によって検証されます。
 
-なお特に指定がない場合は以下のようなルールでチェックを行ってください。
+エディター上や、ビルド時に表示されるエラーや警告は必ず確認し修正してください。
 
-```json
-{
-  "extends": [
-    "stylelint-config-recommended-scss",
-    "stylelint-config-property-sort-order-smacss",
-    "stylelint-prettier/recommended"
-  ],
-  "plugins": ["stylelint-prettier", "stylelint-scss", "stylelint-order"],
-  "ignoreFiles": ["**/node_modules/**"],
-  "rules": {
-    "prettier/prettier": true,
-    "number-leading-zero": "always",
-    "length-zero-no-unit": true,
-    "unit-case": "lower",
-    "color-hex-case": "lower",
-    "color-hex-length": "short",
-    "font-family-name-quotes": "always-where-recommended",
-    "string-quotes": "double",
-    "shorthand-property-no-redundant-values": true,
-    "value-keyword-case": "lower",
-    "property-case": "lower"
-  }
-}
+
+## ブラッシュアップ
+
+コーディングが終わりテストアップ段階になったら、デザイン担当者とブラッシュアップ会を開催してください。
+
+デザインカンプ通りに作ることは大前提ですが、デザインの意図を汲み取り、デザインを昇華した状態をデザイン担当者と確認しましょう。
+
+実際のブラウザで見た状態は、デザイン担当者がデザインカンプ制作時にイメージしていた状態と異なる場合もあります。
+
+ブラッシュアップ会では、そのような誤差を埋めたり、細かな余白や文字間の調整など、隅々までこだわって最終的にブラウザに美しいデザインが展開される
+
+
+
+
+## ブラウザによる検証・動作確認
+
+
+
+### 実機チェック
+
+実機を利用して対象ブラウザと対象バージョンの検証を必ず行ってください。
+PC環境による検証だけでは、iOS や Android 特有のバグなどに気づけないおそればあります。
+
+iOS や Android などの実機を用意できない場合は、それぞれのシュミレーターを利用してください。
+
+
+::: tip シュミレーター
+-  iOS : [XCode](https://developer.apple.com/jp/xcode/) をインストールすると、付属される [Simulator](https://developer.apple.com/documentation/safari-developer-tools/installing-xcode-and-simulators) が利用可能
+- Android: [Android Studio](https://developer.android.com/studio?hl=ja) をインストールすると、付属される [Android Emulator](https://developer.android.com/studio/run/emulator?hl=ja) が利用可能
+:::
+
+
+::: warning デベロッパーツール と実機は違う
+デベロッパーツールのレスポンシブ表示は実際の iOS や Android が動いているわけではないため、 iOS や Android 特有の問題に気づけません。
+:::
+
+
+
+### デザインチェック
+
+ブラウザをさまざまなサイズに変更して、以下のようなことを確認してください。
+
+- レイアウトの崩れがないか
+- 不必要な横スクロールが表示されてないか
+- 不自然な改行や余白がないか
+- 画像の画質が劣化してないか
+- 写真の重要な被写体が見切れないか
+
+など、どの状態でも美しいデザインを提供できているか検証してください。
+
+
+### パフォーマンスチェック
+
+ページの読み込み速度や、インタラクションの動作のパフォーマンスを確認してください。
+
+- 画像などのメディアファイルは適切なサイズになっているか
+- 処理が重くなるようなスクリプトは書いてないか
+- コンテンツの表示を止めるようなスクリプトは書いてないか
+- 不必要なコードが含まれてないか
+
+などを検証してください。
+
+また、デベロッパーツールの「Lighthourse」やGoogleが提供している [PageSpeed Insights](https://pagespeed.web.dev/) を活用したパフォーマンスチェックを行い問題があれば改善しましょう。
+
+
+### 機能チェック
+
+各ページへのリンクやボタン、フォームなどが正しく機能しているかなどを確認してください。
+
+- 各ページのリンクは正しく機能しているか？
+- フォーカス可能要素はキーボードのみでアクセスや操作が可能か？
+- フォームのバリデーションは正しく機能しているか？
+- フォームの送信は正しく機能しているか？
+- XSSなどのセキュリティ対策漏れはないか？
+- コンソールにエラーは表示されていないか？
+
+
+### コンテンツチェック
+
+ページの情報が正しく提供できているかを確認してください。
+
+- 表記規定は守られているか？
+- 誤字、脱字はないか？
+- 綴り間違えはないか？
+- `alt`属性は適切に設定されているか？
+- ダミー画像や差し替え忘れの画像はないか？
+
+
+
+## ヘッド情報の確認
+
+
+`head`要素の中に配置されている要素が、正しく記述されているか確認してください。
+これらの要素はブラウザに表示されないため、確認し忘れることが多いです。
+
+- `meta`要素（`discription` や OGP など）は正しく記述されているか？
+- `link`要素 （`canonical`、ファビコンなど）は正しく設置されているか？
+- アクセス解析のトラッキングコードは正しく設置されているか？
+- 構造化データは正しく設定されているか？
+
+
+::: warning
+Shibajuku の 課題や検索エンジンにインデックスされて欲しくないサイトは、`meta` 要素、または `robots.txt` などが正しく設置されているかを確認してください。
+
+```html
+<meta name="robots" content="noindex, nofollow" />
 ```
+:::
 
-## JavaScript
 
-ESLintが使える環境の場合は「ESLint」による文法チェックを行ってください。
 
-```json
-{
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "globals": {
-    "jQuery": "readonly",
-    "$": "readonly"
-  },
-  "rules": {
-    "prettier/prettier": "error",
-    "semi": [
-      "error",
-      "always",
-      {
-        "omitLastInOneLineBlock": true
-      }
-    ]
-  }
-}
-```
+## アクセシビリティチェック
+
+ブラウザ拡張機能の [axe DevTools - Web Accessibility Testing](https://chromewebstore.google.com/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?pli=1) を活用して、アクセシビリティ上の問題がないかを確認してください。

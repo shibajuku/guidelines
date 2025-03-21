@@ -20,6 +20,7 @@ export default defineConfig({
           { text: "Git ガイドライン", link: "/coding-guidelines/git" },
           { text: "命名規則", link: "/coding-guidelines/naming" },
           { text: "品質管理", link: "/coding-guidelines/quality" },
+          { text: "用語集", link: "/coding-guidelines/glossary" },
         ],
       },
     ],

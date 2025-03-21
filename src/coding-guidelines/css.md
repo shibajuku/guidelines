@@ -4,13 +4,19 @@
 
 ## 基本ルール
 
-1. `@charset` の記述は `UTF-8` を設定する
-2. Inline CSS は、原則としてカスタムプロパティの定義を除き禁止する
-3. `!important`は、緊急性がある時のみ許容する
-4. 引用符はダブルクォート（`"`）を使用する
-5. フォーカス可能な要素は、`:focus-visible` などを使用してフォーカスを可視化する
-6. 不必要なアニメーションは避け、ユーザビリティを考慮する。
-7. [Biome](https://biomejs.dev/ja/) によるコードフォーマットと解析を行い、エラーに対応する
+以下を基本ルールとして、[CSS の各仕様](https://www.w3.org/Style/CSS/current-work)に則ったコーディングを行ってください。
+
+- `@charset` の記述は `UTF-8` を設定する
+- Inline CSS は、原則としてカスタムプロパティの定義を除き禁止する
+- `!important`は、緊急性がある時のみ許容する
+- 引用符はダブルクォート（`"`）を使用する
+- フォーカス可能な要素は、`:focus-visible` などを使用してフォーカスを可視化する
+- 不必要なアニメーションは避け、ユーザビリティを考慮する。
+- [Biome](https://biomejs.dev/ja/) によるコードフォーマットと解析を行いエラーに対応する
+
+::: warning REC（Recommendation）以外の仕様
+REC（Recommendation）以外の仕様は、[ブラウザの対応状況](https://caniuse.com/)や開発環境のトランスフォーマー（[Lightning CSS](https://lightningcss.dev/transpilation.html) や [PostCSS Preset Env](https://github.com/csstools/postcss-plugins/blob/main/plugin-packs/postcss-preset-env/FEATURES.md)）が対応しているかを確認して、問題ない場合にのみ使用してください。
+:::
 
 ## CSS フレームワーク
 
@@ -20,7 +26,7 @@
 
 また、ユーティリティーファストなフレームワークを使用する場合、本ガイドラインは意味をなしません。
 
-::: tip Orelop 環境の場合
+::: tip 👨‍💻 Orelop 環境の場合
 Orelop 環境の場合は、インストール時のオプションで「Tailwind CSS」を選択することで、Tailwind CSS のインストールと初期設定が完了します。
 :::
 
@@ -31,49 +37,54 @@ Orelop 環境の場合は、インストール時のオプションで「Tailwin
 
 Sass を使用する場合は、 `sass-embedded` パッケージを使用してコンパイルしてください。
 
-::: tip Orelop 環境の場合
+::: tip 👨‍💻 Orelop 環境の場合
 Orelop 環境の場合は、インストール時のオプションで「Sass」を選択することで、`sass-embedded` が使用できます。
 :::
 
 ## ファイル構成
 
-CSS ファイルは、各役割ごとに分割し、CSS レイヤーごとのディレクトリに保存してください。
+CSS ファイルは、モジュールや、要素名、コンポーネントごとに分割し、CSS レイヤー名と同名のディレクトリに保存してください。
 
 ### 開発ディレクトリ
 
 ```
 📂 styles
 ├── 📂 settings
-│    └── valiables.css
+│    ├── valiables.css
+│    └── keyframes.css
 ├── 📂 base
 │    └── reset.css
-├── 📂 layouts
-│    ├── container.css
-│    ├── grid.css
-│    └── [layout name].css
+├── 📂 general
+│    ├── a.css
+│    ├── li.css
+│    └── generaname.css
 ├── 📂 vendors
-│    └── [vendor name].css
+│    └── vendor-name.css
 ├── 📂 components
+│    ├── header.css
+│    ├── footer.css
+│    ├── nav-global.css
+│    ├── container.css
 │    ├── button.css
-│    └── [component name].css
-├── 📂 utilities
-│    └── [utilitie name].css
+│    └── component-name.css
 └── global.css
 ```
 
+
+
 ### 本番ディレクトリ
 
-[Astro](https://astro.build/) 環境を除き、ビルド後の CSS ファイルは、`global-ハッシュ値.css` にまとめてください。
+[Astro](https://astro.build/) 環境を除き、ビルド後の CSS ファイルは、`globaハッシュ値.css` にまとめてください。
 
 ```
 📂 dist
 └── 📂 assets
      └── 📂 styles
-          └── global-ハッシュ値.css
+          └── globaハッシュ値.css
 ```
 
-::: info Orelop 環境の場合
-Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` にまとめられます。
+::: tip 👨‍💻 Orelop 環境の場合
+Orelop 環境の場合は、デフォルトで `globaハッシュ値.css` にまとめられます。
 :::
 
 [Astro](https://astro.build/) 環境の場合は、[Astro の構成](https://docs.astro.build/ja/guides/styling/#%E6%9C%AC%E7%95%AA%E7%92%B0%E5%A2%83) に従います。
@@ -82,24 +93,24 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 
 `@layer` を用いて、以下の CSS レイヤーを定義し、該当するレイヤーにスタイルを追加してください。
 
-| レイヤー名   | 該当するスタイル                                    |
-| ------------ | --------------------------------------------------- |
-| `settings`   | グローバルなカスタムプロパティの設定                |
-| `base`       | リセットなどのブラウザの CSS 調整やベースのスタイル |
-| `layouts`    | レイアウトに関するスタイル                          |
-| `vendors`    | ライブラリやフレームワークのスタイル                |
-| `components` | ページを構成する再利用可能なパーツのスタイル        |
-| `utilities`  | 僅かなスタイル調整用のスタイル                      |
+| レイヤー名   | 該当するスタイル                             |
+| ------------ | -------------------------------------------- |
+| `settings`   | グローバルなカスタムプロパティの設定         |
+| `base`       | ブラウザの CSS 調整やベースのスタイル        |
+| `general`    | レイアウトに関するスタイル                   |
+| `vendors`    | ライブラリやフレームワークのスタイル         |
+| `components` | ページを構成する再利用可能なパーツのスタイル |
 
 なお、`global.css` には直接スタイルを記述せず、各役割ごとに分割した CSS ファイルを、レイヤーごとに `@import` で読み込んでください。
 
 ```css
-@layer settings, base, layouts, vendors, components, utilities;
+@layer settings, base, general, vendors, components;
 
 /* ============================================
   1.0 - Settings
 ============================================ */
 @import "settings/variables.css" layer(settings);
+@import "settings/keyframes.css" layer(settings);
 
 /* ============================================
   2.0 - Base
@@ -107,10 +118,10 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 @import "base/reset.css" layer(base);
 
 /* ============================================
-  3.0 - Layouts
+  3.0 - General
 ============================================ */
-@import "layouts/container.css" layer(layouts);
-@import "layouts/grid.css" layer(layouts);
+@import "general/a.css" layer(general);
+@import "general/li.css" layer(general);
 
 /* ============================================
   4.0 - Vendors
@@ -120,15 +131,15 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 /* ============================================
   5.0 - Components
 ============================================ */
+@import "components/header.css" layer(components);
+@import "components/footer.css" layer(components);
+@import "components/nav-global.css" layer(components);
+@import "components/nav-local.css" layer(components);
+@import "components/container.css" layer(components);
 @import "components/button.css" layer(components);
-
-/* ============================================
-  6.0 - Utilities
-============================================ */
-@import "utilities/display.css" layer(utilities);
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson 26 インポートとカスケードレイヤー」を参照
 :::
 
@@ -137,14 +148,14 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 ```astro
 <style>
 @layer components {
- .c-button {
+ .button {
   /* ボタンのスタイル */
  }
 }
 </style>
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「静的サイトジェネレーター Astro 講座」を参照
 :::
 
@@ -183,7 +194,7 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 }
 
 /* 特定のブロックの子要素のみに共通のスタイルを適用する例 */
-.c-stack {
+.stack {
   display: block grid;
 
   & > * {
@@ -209,7 +220,7 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 }
 
 /* 特定のブロック内の子孫で、配置できる要素が明確な場合 */
-.c-nav-global {
+.nav-global {
   & :where(li) {
     border: 1px solid;
   }
@@ -221,22 +232,22 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 状態管理は クラスセレクタ（ `is-*` など）を使用せず、動的擬似クラス（`:hover` や `:focus-visble` など）、UI 要素状態擬似クラス（`:checked` や `:disabled` など）、属性セレクタ（ `[open]` や `[aria-*]` 、`[data-*]` など）を使用してください。
 
 ```css
-.c-button:hover,
-.c-button:focus-visible {
+.button:hover,
+.button:focus-visible {
   background-color: var(--color-blue);
 }
 
-.c-button:disabled {
+.button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.c-button[aria-expanded="true"] {
+.button[aria-expanded="true"] {
   background-color: var(--color-blue);
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson9 セレクタと詳細度」を参照
 :::
 
@@ -245,17 +256,17 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 クラス名は BEM システムのシンタックスである、Block、Element、Modifier に分類して構成される [MindBEMding](https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) のアイデアを基本的に採用します。
 
 ```css
-.c-card {
+.card {
   display: block grid;
   grid-template-rows: subgrid;
   grid-row: span 3;
 }
 
-.c-card__body {
+.card__body {
   padding: calc(24 * var(--torem));
 }
 
-.c-card__title {
+.card__title {
   font-size: calc(24 * var(--torem));
 }
 ```
@@ -265,15 +276,15 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 また、影響範囲が明確な場合は、親 Block または、親 Element に定義されたカスタムプロパティの継承によって、スタイルを変化させる方法も許容します。
 
 ```css
-.c-card {
+.card {
   --button-background-color: var(--color-blue);
 }
 
-.c-media__button {
+.media__button {
   --button-background-color: var(--color-red);
 }
 
-.c-button {
+.button {
   background-color: var(--button-background-color, var(--color-dark));
 }
 ```
@@ -283,32 +294,70 @@ Orelop 環境の場合は、デフォルトで `global-ハッシュ値.css` に�
 ただし、プロジェクト内で統一してください。
 
 ```css
-.c-button.-large { … }
-.c-button.-medium { … }
-.c-button.-small { … }
+.button.-large { … }
+.button.-medium { … }
+.button.-small { … }
 ```
 
 ### 接頭辞
 
-各スタイルは役割を明確にするために、レイヤーに合わせて接頭辞を設けることを推奨します。
+一般的なCSS設計で用いられる接頭辞は必要ありません。
+
+ただし、接頭辞を設けないことを強制するわけではありません。
+プロジェクトごとに「つける」「つけない」を選択し、ルールを統一してください。
+なお、接頭辞を設ける場合はレイヤーに合わせてることを推奨します。
 
 | 種類                | 接頭辞 |
 | :------------------ | :----- |
-| Layouts レイヤー    | `l-`   |
+| General レイヤー    | `g-`   |
 | Components レイヤー | `c-`   |
 | Utilities レイヤー  | `u-`   |
 
-なお、ブロック名やエレメント名、モディファイア名はケバブケースでの命名を行ってください。
 
-```html
-<!-- 🙅‍♂️ 悪い例 -->
-<nav class="c-nav_global">...</nav>
 
-<!-- 🙆‍♀️ 良い例 -->
-<nav class="c-nav-global">...</nav>
+### ブロック名、エレメント名、モディファイア名
+
+ブロック名やエレメント名は、[コンポーネント名](./naming.html#コンポーネント名)の命名規則を参考に[ケバブケース](./glossary.html#ケバブケース)で指定してください。
+
+```css
+/* ブロック名（種類） */
+.hero {
+  ...
+}
+
+/* エレメント名（種類__種類） */
+.hero__cover {
+  ...
+}
+
+/* ブロック名（種類+詳細） */
+.nav-global {
+  ...
+}
+
+/* エレメント名（種類+詳細__種類） */
+.nav-global__title {
+  ...
+}
+
 ```
 
-::: info 教材
+
+モディファイアは、基本的にクラスを使いませんが、どうしても使う必要がある場合には、[コンポーネント名](./naming.html#コンポーネント名)の[状態](./naming.html#状態) の命名規則を参考に[ケバブケース](./glossary.html#ケバブケース)で指定してください。
+
+```css
+/* モディファイア名（種類--状態） */
+.button--large { … }
+.button--medium { … }
+.button--small { … }
+
+/* モディファイア名（状態） */
+.button.-large { … }
+.button.-medium { … }
+.button.-small { … }
+```
+
+::: info 📖 教材
 詳細は「カオスにならない CSS を書くための CSS 設計 講座」 を参照
 :::
 
@@ -334,7 +383,7 @@ CSS のプロパティの記述順を以下の順番になるようにしてく�
 
 5. 文字の体裁やフォントに関わるプロパティ
 
-   `font-family`、`color`、`text-align`、`text-decoration`、`vertical-align`、`white-space` など
+   `font-family`、`color`、`text-align`、`text-decoration`、`verticaalign`、`white-space` など
 
 6. その他のプロパティ
 
@@ -342,7 +391,7 @@ CSS のプロパティの記述順を以下の順番になるようにしてく�
 
 ※上記 6 つのブロックが確立されていれば、その中でのプロパティの順番は問いません。
 
-::: tip Orelop 環境の場合
+::: tip 👨‍💻 Orelop 環境の場合
 Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自動で並び変わります。
 :::
 
@@ -375,7 +424,7 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 - `font` のショートハンドは使用しない
 
 ```css
-.c-button {
+.button {
   border: 1px solid;
 }
 ```
@@ -387,7 +436,7 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 値が `0` の場合は単位を省略してください。
 
 ```css
-.l-spacer {
+.spacer {
   margin-block-start: 0;
 }
 ```
@@ -405,27 +454,27 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 なお、`clamp()` を使用する場合の推奨値にも、`rem` を組みわせて指定してください。
 
 ```css
-.l-spacer {
+.spacer {
   margin-block-start: clamp(2.5rem, 1.9718rem + 2.2535vi, 4rem);
 }
 
-.c-heading {
+.heading {
   font-size: clamp(2rem, 1.6479rem + 1.5023cqi, 3rem);
   letter-spacing: 0.25em;
 }
 ```
 
-::: tip Orelop 環境の場合
+::: tip 👨‍💻 Orelop 環境の場合
 Orelop 環境の場合は、`fluid()` というオリジナル関数を使用して推奨値の自動計算ができます。
 
 ```css
 /* 開発時 */
-.l-spacer {
+.spacer {
   margin-block-start: fluid(40px, 64px);
 }
 
 /* ビルド時 */
-.l-spacer {
+.spacer {
   margin-block-start: clamp(2.5rem, 1.9718rem + 2.2535vi, 4rem);
 }
 ```
@@ -439,12 +488,12 @@ Orelop 環境の場合は、`fluid()` というオリジナル関数を使用し
   --torem: calc(1rem / 16);
 }
 
-.c-heading {
+.heading {
   font-size: calc(24 * var(--torem));
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」と「Lesson24 関数」を参照
 :::
 
@@ -453,12 +502,12 @@ Orelop 環境の場合は、`fluid()` というオリジナル関数を使用し
 `line-height` は原則単位なしの数値でしてください。
 
 ```css
-.c-heading {
+.heading {
   line-height: 1.5;
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson3 フォント関連のプロパティ – 後編 –」 → 「Chapter3 行の高さ」を参照
 :::
 
@@ -467,12 +516,12 @@ Orelop 環境の場合は、`fluid()` というオリジナル関数を使用し
 `font-weight` は数値で指定してください。
 
 ```css
-.c-heading {
+.heading {
   font-weight: 700;
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」 → 「Chapter3 文字の太さ」を参照
 :::
 
@@ -482,14 +531,11 @@ JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` �
 
 ```css
 :where(body) {
-  background-image: image-set(
-    url("/assets/images/bg-noize.png") 1x,
-    url(("/assets/images/bg-noize@2x.png") 2x
-  );
+  background-image: image-set(url("/assets/images/bg-noize.png") 1x, url("/assets/images/bg-noize@2x.png") 2x);
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson7 背景画像と背景の一括指定」 → 「Chapter1 背景画像」を参照
 :::
 
@@ -537,11 +583,11 @@ JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` �
 }
 ```
 
-::: tip Orelop 環境の場合
+::: tip 👨‍💻 Orelop 環境の場合
 Orelop 環境の場合は、上記のカスタムメディアクエリがあらかじめ定義されています。
 :::
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson 23 メディアクエリ」を参照
 :::
 
@@ -550,11 +596,11 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 対応ブラウザに問題がない場合は、コンテナークエリーによるレスポンシブ対応を推奨します。
 
 ```css
-.l-container {
+.container {
   container: container / inline-size;
 }
 
-.l-grid {
+.grid {
   display: block grid;
   grid-template-columns: repeat(var(--grid-cols, 1), minmax(0, 1fr));
 
@@ -567,12 +613,12 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
   }
 }
 
-.c-heading {
+.heading {
   font-size: clamp(1.5rem, 1.6479rem + 1.5023cqi, 2rem);
 }
 ```
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson 27 コンテナークエリ」を参照
 :::
 
@@ -600,7 +646,7 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 上記、3 以降のセレクタ内にも、メディアクエリ または、コンテナークエリのネストを許容しますが、ネストが深くなりすぎないように注意してください。
 
 ```css
-.c-button {
+.button {
   /* 1. 要素のスタイル */
   display: block grid;
 
@@ -657,33 +703,11 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 
 詳細度は低い順に並べ、詳細度が高いセレクターが詳細度の低いセレクターより上に記述されないようにしてください。
 
-::: info 教材
+::: info 📖 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson9 セレクタと詳細度」と「Lesson 25 ネスティングルール」を参照
 :::
 
-## コメント
-
-必要に応じて、コードの意図や構造を説明するコメントを記述してください。
-
-コメントは、検索性を考慮し、Block、Element、Modifier に対して、それぞれ異なる装飾のルールでコメントを記述してください。
-
-```css
-/* ============================================
-  Block
-============================================ */
-
-/*
-  Element
-————————————————————————————————————————— */
-
-/* Modifire */
-```
-
-## アクセシビリティ
-
-[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4 つの基本原則（知覚可能、操作可能、理解可能、堅牢性）をもとに、AA の準拠を目指したコーディングを心がけてください。
-
-### スクリーンリーダー用のテキスト
+## スクリーンリーダー用のテキスト
 
 スクリーンリーダー用のテキストを視覚的に非表示にする場合は、以下の CSS を活用してください。
 `display: none` や `visibility: hidden` は、アクセシビリティツリーから削除されます。
@@ -703,11 +727,11 @@ Orelop 環境の場合は、上記のカスタムメディアクエリがあら�
 }
 ```
 
-::: tip Orelop の場合
+::: tip 👨‍💻 Orelop の場合
 Orelop 環境の場合は、内包しているリセット用の CSS に上記のクラスが含まれています。
 :::
 
-### OS の「視差効果を減らす」オプション
+## 視差効果
 
 ユーザーの中には、OS の「視差効果を減らす」オプションを有効にしている方もいます。
 
@@ -726,12 +750,30 @@ Orelop 環境の場合は、内包しているリセット用の CSS に上記�
     animation-delay: unset !important;
     transition-delay: unset !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    scrolbehavior: auto !important;
     view-transition-name: none !important;
   }
 }
 ```
 
-::: tip Orelop の場合
+::: tip 👨‍💻 Orelop の場合
 Orelop 環境の場合は、内包しているリセット用の CSS に上記の CSS が含まれています。
 :::
+
+## コメント
+
+必要に応じて、コードの意図や構造を説明するコメントを記述してください。
+
+コメントは、検索性を考慮し、Block、Element、Modifier に対して、それぞれ異なる装飾のルールでコメントを記述してください。
+
+```css
+/* ============================================
+  Block
+============================================ */
+
+/*
+  Element
+————————————————————————————————————————— */
+
+/* Modifire */
+```
