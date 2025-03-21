@@ -5,9 +5,46 @@ export default defineConfig({
   title: "Shibajuku Guidelines",
   description: "ShibajukuのWebサイト制作ガイドライン",
   lang: "ja",
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.svg',  type: "image/svg+xml" }],
+    [
+      'link',
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' }
+    ],
+    [
+      'link',
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }
+    ],
+    [
+      'link',
+      { href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap', rel: 'stylesheet' }
+    ]
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [{ text: "コーディングガイドライン", link: "/coding-guidelines" }],
+    logo: '/favicon.svg',
+    nav: [
+      // { text: "コーディングガイドライン", link: "/coding-guidelines" },
+      {
+        text: 'コーディングガイドライン',
+        items: [
+          { text: "基本仕様", link: "/coding-guidelines/" },
+          { text: "HTML ガイドライン", link: "/coding-guidelines/html" },
+          { text: "CSS ガイドライン", link: "/coding-guidelines/css" },
+          { text: "JavaScript ガイドライン", link: "/coding-guidelines/javascript" },
+          { text: "Git ガイドライン", link: "/coding-guidelines/git" },
+          { text: "命名規則", link: "/coding-guidelines/naming" },
+          { text: "品質管理", link: "/coding-guidelines/quality" },
+          { text: "用語集", link: "/coding-guidelines/glossary" },
+        ]
+      },
+      {
+        text: '3.0.0-alpha.1',
+        items: [
+          { text: "変更履歴", link: "https://github.com/shibajuku/guidelines/releases" },
+        ]
+      }
+    ],
 
     sidebar: [
       {
@@ -25,7 +62,10 @@ export default defineConfig({
       },
     ],
 
-    socialLinks: [{ icon: "github", link: "https://github.com/shibajuku/guidelines" }],
+    socialLinks: [
+      { icon: "x", link: "https://x.com/shibajuku_salon" },
+      { icon: "github", link: "https://github.com/shibajuku/guidelines" }
+    ],
 
     search: {
       provider: "local",
@@ -45,7 +85,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: "Released under the MIT License.",
+      message: 'This guideline is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a>.',
       copyright: "Copyright © 2025 Shibajuku",
     },
   },

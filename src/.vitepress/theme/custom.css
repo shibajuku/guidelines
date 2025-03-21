@@ -1,0 +1,50 @@
+:root {
+  --vp-c-brand-1: #08a3a0;
+  --vp-c-brand-2: #10c7c4;
+  --vp-c-brand-3: #359D9E;
+
+  --vp-button-brand-hover-bg: #30c6c3;
+
+  /* --vp-c-bg: #0b0c0e;
+  --vp-c-bg: #4c5157; */
+  --vp-c-brand-soft: #badada7d;
+
+  --vp-font-family-base: 'Inter', "Noto Sans JP", ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+body {
+  font-weight: 450;
+}
+
+.dark {
+  --vp-c-text-1: #c7cdd4;
+  --vp-c-brand-1: #43d0ce;
+  --vp-c-brand-3: #359D9E;
+
+  --vp-c-brand-soft: #45707046;
+
+  --vp-button-brand-hover-bg: #39f9f6;
+
+  --vp-c-bg: #26272a;
+
+  --vp-c-bg-alt: #1f2023;
+  --vp-c-divider: #383c40;
+
+  --vp-c-gutter: #1b1c1e;
+  --vp-c-bg-soft: #1f20256e;
+
+  --vp-button-brand-hover-bg: #2cafac;
+
+
+}
+
+
+.title {
+  span {
+    margin-block-start: 2px;
+  }
+}
+
+.vp-doc :not(pre) > code {
+  font-weight: 500;
+}

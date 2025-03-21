@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Shibajuku Guidelines"
-  text: "Web Production Guidelines"
-  tagline: ShibajukuのWeb制作ガイドライン
+  text: "Confidently deliver better websites"
+  tagline: Quality. Growth. Communication.
   actions:
     - theme: brand
       text: Coding Guidelines
