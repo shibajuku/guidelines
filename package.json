@@ -1,6 +1,6 @@
 {
   "name": "shibajuku-guidlines",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Shibajuku Web Production Guidelines",
   "main": "index.js",
   "scripts": {

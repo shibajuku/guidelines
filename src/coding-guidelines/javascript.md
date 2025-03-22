@@ -27,17 +27,31 @@ JavaScript（TypeScript） ファイルは、機能ごとに分割し、該当�
 
 ### 開発ディレクトリ
 
+::: code-group
+``` [JavaScript]
+📂 scripts
+├── 📂 libs
+│    ├── animations.js
+│    ├── Loading.js
+│    ├── Toggle.js
+│    └── library-name.js
+├── 📂 utils
+│    └── utilitie-name.css
+└── main.js
 ```
+
+``` [TypeScript]
 📂 scripts
 ├── 📂 libs
 │    ├── animations.ts
 │    ├── Loading.ts
 │    ├── Toggle.ts
-│    └── [library name].ts
+│    └── library-name.ts
 ├── 📂 utils
-│    └── [utilitie name].css
+│    └── utilitie-name.css
 └── main.ts
 ```
+:::
 
 
 
@@ -69,15 +83,15 @@ Orelop 環境の場合は、デフォルトで `main-ハッシュ値.js` にま�
 ::: code-group
 
 ```zsh [npm]
-npm install [library name] - D
+npm install library-name - D
 ```
 
 ```zsh [Yarn]
-yarn add [library name] - D
+yarn add library-name - D
 ```
 
 ```zsh [pnpm]
-pnpm add [library name] - D
+pnpm add library-name - D
 ```
 
 :::
@@ -101,11 +115,11 @@ pnpm add jquery - D
 
 :::
 
-プロジェクトによっては、[Vue.js](https://ja.vuejs.org/) などの部分的に(HTML や CSS がそのまま)利用できるフレームワークも許容します。
+プロジェクトによっては、[Vue.js](https://ja.vuejs.org/) （Composition API を推奨）などの部分的に(HTML や CSS がそのまま)利用できるフレームワークも許容します。
 
 ただし、チームのコーディングメンバーに、これらの学習を終えていないメンバーがいる場合には、サポート可能な範囲で利用するか、利用を控えてください。
 
-また、比較的シンプルで学習コストの低い、[Alpine.js](https://alpinejs.dev/) の利用を検討してください。
+また、比較的シンプルで学習コストの低い、[Alpine.js](https://alpinejs.dev/) の利用も検討してください。
 
 なお、これらのフレームワークでの開発は、本ガイドラインの範囲を超えているため各フレームワークの仕様に沿って実装してください。
 
@@ -128,10 +142,14 @@ JavaScript（TypeScript） は、機能ごとにファイルを分割し、ESMod
 
 エクスポートは、名前付きエクスポートを推奨しますが、デフォルトエクスポートでも構いません。
 
-```js
-// libs/ClassName.js
+::: code-group
+```js [名前付きエクスポート（関数）]
+export function funcName() {
+  // 処理内容
+}
+```
 
-// クラスのエクスポート（デフォルトエクスポート）
+```js [デフォルトエクスポート（クラス）]
 export default class ClassName {
   constructor() {
     // コンストラクタ
@@ -142,16 +160,7 @@ export default class ClassName {
   }
 }
 ```
-
-```js
-// libs/funcName.js
-
-// クラスのエクスポート（名前付きエクスポート）
-export function funcName {
-  // 処理内容
-}
-```
-
+:::
 ### インポート
 
 HTML 環境の場合は、`main.ts` に `import` して利用してください。
@@ -254,7 +263,8 @@ const users = new Map();
 
 クラスは、コンストラクター関数やプロトタイプを使用せず、クラス構文を使用してください。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 function Person(name, age) {
   this.name = name;
@@ -278,11 +288,39 @@ class Person {
 }
 ```
 
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+function Person(this: any, name: string, age: number) {
+  this.name = name;
+  this.age = age;
+
+  this.greeting = function (): void {
+    console.log(`こんにちは。${this.name}です。`);
+  };
+}
+
+// 🙆‍♀️ 良い例
+class Person {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greeting(): void {
+    console.log(`こんにちは。${this.name}です。`);
+  }
+}
+```
+:::
 ## 関数
 
 関数の宣言は、意図しない再代入や巻き上げを防ぐために関数式を推奨します。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 function sum(a, b) {
   return a + b;
@@ -293,6 +331,20 @@ const sum = function (a, b) {
   return a + b;
 };
 ```
+
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+function sum(a: number, b: number): number {
+  return a + b;
+}
+
+// 🙆‍♀️ 良い例
+const sum = function (a: number, b: number): number {
+  return a + b;
+};
+```
+:::
+
 
 なお、ユーティリティ関数や無名関数をコールバックとして渡す場合で、`this` にアクセスしないケースにおいては、アロー関数を使用してください。
 
@@ -354,7 +406,8 @@ const message = isFlag ? "正しいです" : "正しくないです";
 
 `else` 文や ネストを減らすため、早期`return` を意識してください。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 const getDiscount = (price) => {
   if (price >= 10000) {
@@ -375,6 +428,29 @@ const getDiscount = (price) => {
   return 0;
 };
 ```
+
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+const getDiscount = (price: number): number => {
+  if (price >= 10000) {
+    if (price >= 50000) {
+      return 20;
+    } else {
+      return 10;
+    }
+  } else {
+    return 0;
+  }
+};
+
+// 🙆‍♀️ 良い例
+const getDiscount = (price: number): number => {
+  if (price >= 50000) return 20;
+  if (price >= 10000) return 10;
+  return 0;
+};
+```
+:::
 
 ## 反復
 
@@ -407,8 +483,8 @@ for (const todo of todos) {
 アニメーションのためのタイマー処理は、`setTimeout()` や `setInterval()` より、`requestAnimationFrame` を優先してください。
 
 ブラウザのフレームレートに合わせて最適に描画処理が行われるため、パフォーマンスの向上が期待できます。
-
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 let position = 0;
 
@@ -434,13 +510,41 @@ const move = function () {
 rafid = requestAnimationFrame(move);
 ```
 
+
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+let position = 0;
+
+const move = function (): void {
+  position += 1;
+  element.style.setProperty("--move", `${position}px`);
+};
+
+setInterval(move, 16);
+
+// 🙆‍♀️ 良い例
+let position = 0;
+let rafid: number;
+
+const move = function (): void {
+  position += 1;
+  element.style.setProperty("--move", `${position}px`);
+
+  cancelAnimationFrame(rafid);
+  rafid = requestAnimationFrame(move);
+};
+
+rafid = requestAnimationFrame(move);
+```
+:::
 ## 非同期処理
 
 非同期処理には、原則、 `async` / `await` 構文を使用し、コールバック地獄にはならないようにしてください。
 
 また、非同期通信を行う際には、`XMLHttpRequest` や外部ライブラリの [axios](https://github.com/axios/axios) は使用せず、`fetch()` を使用してください。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 function getData(url) {
   return new Promise((resolve, reject) => {
@@ -482,22 +586,121 @@ try {
 }
 ```
 
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+function getData(url: string): Promise<Data> {
+  return new Promise((resolve, reject) => {
+    const XHR = new XMLHttpRequest();
+    XHR.open("GET", url);
+    XHR.onload = function () {
+      if (XHR.status === 200) {
+        resolve(JSON.parse(XHR.responseText));
+      } else {
+        reject(new Error(`リクエスト失敗: ${XHR.status}`));
+      }
+    };
+    XHR.onerror = function () {
+      reject(new Error("ネットワークエラー"));
+    };
+    XHR.send();
+  });
+}
+
+getData("sample.json")
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+// 🙆‍♀️ 良い例
+async function getData(url: string): Promise<Data> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`リクエスト失敗: ${response.status}`);
+  }
+  const data: Data = await response.json();
+  return data;
+}
+
+async function fetchData(): Promise<void> {
+  try {
+    const data: Data = await getData("sample.json");
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchData();
+```
+:::
 ## エラーハンドリング
 
 非同期処理（`Promise` が `reject` された）や、ローカルストレージやセッションストレージへのアクセス（ストレージが存在しない）など、予期しないエラーが発生する可能性がある場合は、`try...catch` を使用してエラーハンドリグを行なってください。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
-const user = JSON.parse(localStorage.getItem("users"));
+const getBookmarks = function() {
+  const bookmarksData = localStorage.getItem("bookmarks");
+  if (!bookmarksData) {
+    return null;
+  }
+
+  const bookmarks = JSON.parse(bookmarksData);
+  return bookmarks;
+}
+
 
 // 🙆‍♀️ 良い例
-try {
-  const user = JSON.parse(localStorage.getItem("users"));
-} catch (error) {
-  console.error("ローカルストレージの読み込みエラー:", error);
+const getBookmarks = function() {
+  try {
+    const bookmarksData = localStorage.getItem("bookmarks");
+
+    if (!bookmarksData) {
+      return null;
+    }
+
+    const bookmarks = JSON.parse(bookmarksData);
+    return bookmarks;
+
+  } catch (error) {
+    console.error("ローカルストレージの読み込みエラー:", error);
+    return null;
+  }
 }
 ```
 
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+const getBookmarks = function(): Bookmark[] | null {
+  const bookmarksData: string | null = localStorage.getItem("bookmarks");
+  if (!bookmarksData) {
+    return null;
+  }
+
+  const bookmarks: Bookmark[] = JSON.parse(bookmarksData);
+  return bookmarks;
+}
+
+
+// 🙆‍♀️ 良い例
+const getBookmarks = function(): Bookmark[] | null {
+  try {
+    const bookmarksData: string | null = localStorage.getItem("bookmarks");
+
+    if (!bookmarksData) {
+      return null;
+    }
+
+    const bookmarks: Bookmark[] = JSON.parse(bookmarksData);
+    return bookmarks;
+
+  } catch (error) {
+    console.error("ローカルストレージの読み込みエラー:", error);
+    return null;
+  }
+}
+```
+:::
 ## イベント
 
 ### スクロールイベント
@@ -522,15 +725,35 @@ HTML のタグをテキストとして挿入する必要がある場合は `inne
 
 ただし、`innerHTML` は、挿入するコンテンツに安全性が確保できない場合（ユーザーが投稿したコンテンツなど）は、セキュリティの観点から使用しないでください。
 
-```js
+::: code-group
+```js [JavaScript]
 // 🙅‍♂️ 悪い例
 const container = document.querySelector("[data-container]");
-container.innerHTML = text;
+if (container) {
+  container.innerHTML = text;
+}
 
 // 🙆‍♀️ 良い例
 const container = document.querySelector("[data-container]");
-container.textContent = text;
+if (container) {
+  container.textContent = text;
+}
 ```
+
+```ts [TypeScript]
+// 🙅‍♂️ 悪い例
+const container = document.querySelector<HTMLElement>("[data-container]");
+if (container) {
+  container.innerHTML = text;
+}
+
+// 🙆‍♀️ 良い例
+const container = document.querySelector<HTMLElement>("[data-container]");
+if (container) {
+  container.textContent = text;
+}
+```
+:::
 
 ## データの受け渡し
 
