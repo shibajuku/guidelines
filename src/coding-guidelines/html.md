@@ -34,9 +34,12 @@
 ```[Astro]
 📂 src                            # 開発ディレクトリ
 ├── 📂 components                 # コンポーネント
-│    └── Component-name.astro
+│    ├── Header.astro
+│    ├── Footer.astro
+│    └── ComponentName.astro
 ├── 📂 layouts                    # レイアウト
-│    └── Layout-name.astro
+│    ├── Layout.astro
+│    └── LayoutName.astro
 └── 📂 pages                      # ページ
      ├── 📂 category-name         # 下層ページ
      │    └── index.astro
@@ -45,10 +48,14 @@
 
 :::
 
+
+
 トップページは、開発ディレクトリの直下に `index.html` （Astro 環境の場合は `page` ディレクトリの直下に `index.astro` ）として配置してください。
 
 下層ページは、カテゴリー毎にディレクトリを作成し、その中に `index.html` （Astro 環境の場合は `index.astro` ）として配置してください。
 
+
+なお、各ディレクトリ名や各ファイル名は [命名規則](./naming/) を参照してください。
 ### 本番ディレクトリ
 
 ::: code-group
@@ -93,7 +100,7 @@ URL 内の `&` も対象です。
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet" />
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter2 特殊な記述が必要な要素」を参照
 :::
 
@@ -105,7 +112,7 @@ URL 内の `&` も対象です。
 <!DOCTYPE html>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson1 HTML の基本」→「Chapter6 HTML のバージョンと DOCTYPE」を参照
 :::
 
@@ -155,7 +162,7 @@ URL 内の `&` も対象です。
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <script type="module" src="/assets/scripts/main.ts"></script>
+  <s type="module" src="/assets/scripts/main.ts"></script>
 </head>
 ```
 
@@ -177,7 +184,7 @@ URL 内の `&` も対象です。
 <title>Sample Company | 大阪にあるワクワクを創造するWeb制作会社</title>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「Web ディレクション講座」→「Lesson6 効果的な SEO」を参照
 :::
 
@@ -193,7 +200,7 @@ URL 内の `&` も対象です。
 <title>レスポンシブWebデザイン | 出来ること | Sample Company</title>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「Web ディレクション講座」→「Lesson6 効果的な SEO」を参照
 :::
 
@@ -203,13 +210,13 @@ URL 内の `&` も対象です。
 
 ### 文字エンコーディング
 
-`UTF-8` を使用してください。また、ファイルは `UTF-8`（BOM 無し）で保存してください。
+`UTF-8` を使用してください。
 
 ```html
 <meta charset="UTF-8" />
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson1 HTML の基本」→「Chapter7 文字エンコーディングと文字化け」を参照
 :::
 
@@ -234,7 +241,7 @@ URL 内の `&` も対象です。
 />
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「Web ディレクション講座」→「Lesson6 効果的な SEO」を参照
 :::
 
@@ -249,7 +256,7 @@ URL 内の `&` も対象です。
 ### Twitter カード と OGP
 
 SNS へのシェア時に表示される情報を設定してください。
-なお、`og:type` は、ページの種類に応じて `website` または `article` などの種類を適切に指定し、`og:type` に合わせた追加情報（ `article:published_time` や `article:author` など）も設定してください。
+なお、`og:type` は、ページの種類に応じて `website` や `article` などの種類を適切に指定し、`og:type` に合わせた追加情報（ `article:published_time` や `article:author` など）も設定してください。
 
 ```html
 <meta name="twitter:card" content="summary_large_image" />
@@ -263,21 +270,21 @@ SNS へのシェア時に表示される情報を設定してください。
 <meta property="og:image" content="/assets/images/ogp.png" />
 ```
 
-::: warning OGP 画像の URL
+::: warning :bulb: OGP 画像の URL
 `og:image` は、相対 URL では認識しない SNS もあるため、絶対 URL で指定してください。
 :::
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson14 ページの情報」→「Chapter2 SNS の共有情報を設定」を参照
 :::
 
 ### その他
 
-以下は、基本的に必要ありませんが、指示があった場合などは、必要に応じて追加してください。
+以下は、基本的に必要ありませんが、指示があった場合は、必要に応じて追加してください。
 
 #### keywords
 
-特別な理由で使用する場合はページの内容に関連したキーワードを 5 個程度で記述してください。
+ページの内容に関連したキーワードを 5 個程度で記述してください。
 
 ```html
 <meta name="keywords" content="レスポンシブWebデザイン,スマートフォンサイト,Web制作,大阪,Sample Company" />
@@ -285,7 +292,7 @@ SNS へのシェア時に表示される情報を設定してください。
 
 #### author
 
-特別な理由で使用する場合は humans.txt を作成し、読み込ませてください。
+`humans.txt` を作成し、読み込ませてください。
 
 ```html
 <meta name="author" content="/humans.txt" />
@@ -310,13 +317,37 @@ SNS へのシェア時に表示される情報を設定してください。
 :::
 
 ::: tip Astro 環境の場合
-[Astro](https://astro.build/) 環境の場合は、グローバルで利用するスタイルは外部ファイル化し、レイアウトファイルのフロントマターに `import` で読み込み、レイアウトやコンポーネント固有のスタイルは、`<style>` 要素に CSS を記述してください。
+[Astro](https://astro.build/) 環境の場合は、グローバルで利用するスタイルは外部ファイル化し、レイアウトファイルのフロントマターに `import` で読み込み込んでください。レイアウトやコンポーネント固有のスタイルは、それぞれの`.astro` ファイル内の `<style>` 要素に CSS を記述してください。
 
-```astro [Astro]
+
+::: code-group
+
+```astro [Layout.astro]
 ---
-import "@styles/global.css"; // SCSSの場合は .scss
+// CSSの場合
+import "@styles/global.css";
+
+// SCSSの場合
+import "@styles/global.scss";
 ---
 ```
+
+```astro [Header.astro]
+<!-- CSSの場合 -->
+<style>
+.header {
+  background-color: var(--color-dark);
+}
+</style>
+
+<!-- SCSSの場合 -->
+<style lang="scss">
+.header {
+  background-color: var(--color-dark);
+}
+</style>
+```
+
 
 :::
 
@@ -327,7 +358,7 @@ import "@styles/global.css"; // SCSSの場合は .scss
 ::: code-group
 
 ```html [JavaScript]
-<script type="module" src="/assets/scripts/main.js"></script>
+<script type="module" src="/assets/scripts/main.js"></s>
 ```
 
 ```html [TypeScript]
@@ -399,15 +430,15 @@ import "@styles/global.css"; // SCSSの場合は .scss
 </body>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson13 セクションとグルーピング」→「Chapter2 基本構造の要素」を参照
 :::
 
 ## アウトライン
 
-CMS などによる投稿されたコンテンツを除き、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）と見出し要素 （`h1` – `h6`）を用いて、アウトラインを生成してください。
+CMS などによって投稿されたコンテンツを除き、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）と見出し要素 （`h1` – `h6`）を用いて、アウトラインを生成してください。
 
-ページの見出しは `h1` から始まり、コンテンツの階層に合わせた見出しレベルを適切に利用してください。
+ページの見出しは `h1` から始まり、コンテンツの階層に合わせた見出しレベルを適切に使用してください。
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -437,7 +468,7 @@ CMS などによる投稿されたコンテンツを除き、セクショニン�
 </section>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson13 セクションとグルーピング」→「Chapter1 セクショニング関連の要素」を参照
 :::
 
@@ -496,7 +527,7 @@ CMS などによる投稿されたコンテンツを除き、セクショニン�
 <p>架空会社Dummy Creationsは、<time datetime="2023-04-01">2023年4月1日</time>に<wbr />架空 太郎によって設立されました。</p>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson3 テキスト関連の要素 – インライン編 –」→「Chapter3 改行を表す」と、「本気で始める CSS 入門」→「Lesson5 縦書きと折り返し」を参照
 :::
 
@@ -518,7 +549,7 @@ CMS などによる投稿されたコンテンツを除き、セクショニン�
 
 内部リンクの `href` 属性は、`/` から始まるパス絶対 URL（ルートパス）で指定してください。
 
-なお、各ディレクトリ内の「index.html」へのリンクは、ファイル名を省略してください。
+なお、各ディレクトリ内の `index.html` へのリンクは、ファイル名を省略してください。
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -564,7 +595,7 @@ CMS などによる投稿されたコンテンツを除き、セクショニン�
 <section id="service">...</section>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson5 ハイパーリンク」を参照
 :::
 
@@ -604,14 +635,39 @@ Orelop 環境の場合は、ビルド時に JPEG、PNG 形式は圧縮し、WebP
 
 `.htaccess` が使えない環境や、[Astro](https://astro.build/) の `<Picture />` コンポーネントのように、`picture` 要素を自動で生成する場合は、`picture` 要素 と `source` 要素を用いて最適な形式で表示されるようにしてください。
 
-```html
-<!-- picture要素を使った例 -->
+
+::: code-group
+
+```html [HTML（htaccess対応）]
+<img src="/assets/images/coffee.jpg" srcset="/assets/images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
+```
+
+```html [HTML（htaccess非対応）]
 <picture>
   <source srcset="/assets/images/coffee.avif, /assets/images/coffee@2x.avif 2x" type="image/avif" />
   <source srcset="/assets/images/coffee.webp, /assets/images/coffee@2x.webp 2x" type="image/webp" />
   <img src="/assets/images/coffee.jpg" srcset="/assets/images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
 </picture>
 ```
+
+```astro [Astro]
+---
+import { Picture } from "astro:assets";
+
+import coffee from "@assets/images/coffee.jpg";
+---
+
+<Picture
+  src={coffee}
+  formats={["avif", "webp"]}
+  widths={[coffee.width / 2, coffee.width]}
+  alt=""
+  sizes={`(max-width: 767px) 240px, ${coffee.width / 2}px`}
+/>
+```
+
+:::
+
 
 ### レイアウトシフトへの対応
 
@@ -626,7 +682,7 @@ Orelop 環境の場合は、ビルド時に JPEG、PNG 形式は圧縮し、WebP
 <img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
 ```
 
-なお、`picture` と `source` 要素を複数のソースが指定されいており、それぞれのソースの画像のサイズや比率が異なる場合は、`source` 要素にも`width` 属性と `height` 属性を指定してください。
+なお、ソースごとに画像サイズや比率が異なる場合は、`source` 要素にも`width` 属性と `height` 属性を指定してください。
 
 ```html
 <picture>
@@ -640,15 +696,15 @@ Orelop 環境の場合は、ビルド時に JPEG、PNG 形式は圧縮し、WebP
 
 `alt` 属性は必ず記述してください。
 
-代替えテキストは画像自体を説明するのではなく、画像の代わりになるような文章を（画像から得られる情報を過不足なく）記述してください。
+代替えテキストは画像の代わりになるような文章を（画像から得られる情報を過不足なく）記述してください。
 前後の文章との繋がりも考慮し、画像の代わりにその代替えテキストを読み上げてもページの内容が成り立つような文章にしてください。
 
 ポイントは以下の４つです。
 
 - 電話の相手にその画像の内容を伝えるなら、どのようになるかを考えて書く
 - 画像のキャプションやタイトル、凡例のようなテキストを入れるわけではない
-- 画像を補完するためのものではない（補足情報は title 属性 を使う）
-- 代替えテキストは、画像の横の文章で既に記述している情報を繰り返さない
+- 画像を補完するためのものではない（補足情報は `title` 属性 を使う）
+- 代替えテキストは、画像横の文章で既に記述している情報を繰り返さない
 
 ```html
 <p>
@@ -682,12 +738,18 @@ Orelop 環境の場合は、ビルド時に JPEG、PNG 形式は圧縮し、WebP
 ```
 
 ::: tip 代替テキストの考察
-代替テキストは、デザイン時点で決定することが理想です。
+代替テキストは、デザイン担当者がデザイン時点で決定することを推奨します。
 :::
 
 ### 高解像ディスプレイへの対応
 
-SVG などのベクター形式の画像を除き、`srcset` 属性を用いて、Retina Display などの高解像ディスプレイへの対応を行ってください。記述子は `size` 属性 と組み合わせた幅記述子（`w`）を推奨しますが、ピクセル密度記述子（`x`） を使ったデバイスピクセル比ごとの対応でも構いません。
+SVG などのベクター形式の画像を除き、`srcset` 属性を用いて、Apple の Retina Display™ などの高解像ディスプレイ（High DPI Display）に対応してください。記述子は `size` 属性 と組み合わせた幅記述子（`w`）を推奨しますが、ピクセル密度記述子（`x`） を使ったデバイスピクセル比ごとの対応でも構いません。
+
+
+
+
+
+::: code-group
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -696,6 +758,29 @@ SVG などのベクター形式の画像を除き、`srcset` 属性を用いて�
 <!-- 🙆‍♀️ 良い例 -->
 <img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
 ```
+
+
+```astro [Astro]
+---
+import { Picture } from "astro:assets";
+
+import coffee from "@assets/images/coffee.jpg";
+---
+<!-- 🙅‍♂️ 悪い例 -->
+<img src="/assets/images/coffee.jpg" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
+
+<!-- 🙆‍♀️ 良い例 -->
+<Picture
+  src={coffee}
+  formats={["avif", "webp"]}
+  widths={[coffee.width / 2, coffee.width]}
+  alt=""
+  sizes={`(max-width: 767px) 240px, ${coffee.width / 2}px`}
+/>
+```
+
+:::
+
 
 ### 非同期デコードと遅延読み込み
 
@@ -710,7 +795,7 @@ SVG などのベクター形式の画像を除き、`srcset` 属性を用いて�
 <img src="/assets/images/coffee.jpg" srcset="images/coffee@2x.jpg 2x" width="480" height="320" alt="厳選したコーヒー豆を使った淹れたてのブレンドコーヒー" loading="lazy" />
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson6 画像関連の要素」を参照
 :::
 
@@ -849,7 +934,7 @@ cue3
 </dialog>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson7 動画と音声」を参照
 :::
 
@@ -877,15 +962,21 @@ Web フォントや Google Maps、YouTube などのセルフホストができ�
 
 ::: tip popover 属性
 モーダレスのダイアログには `popover` 属性を検討してください。
+
+ただし、iOS18.3 以下は 背面をクリックしても閉じないバグがあるので注意してください。
+
+`document.body` に `pointerdown` イベントをリッスンすることで期待通りの動作にすることは可能です。
+
+詳細は Discord の コードスニペットを参照してください。
 :::
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson12 インタラクティブ要素」を参照
 :::
 
 ## 状態管理
 
-要素の状態管理は、原則 class 属性（`is-*` など）で管理せず、以下の属性で管理してください。
+要素の状態管理は、原則 `class` 属性（`is-*` など）で管理せず、以下の属性で管理してください。
 
 ### HTML 標準の属性
 
@@ -943,7 +1034,7 @@ HTML 標準の属性で状態を示せる場合は標準の属性を使用して
 </div>
 ```
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「本気で始める HTML 入門」→「Lesson10 フォーム関連の要素 – 前編 –」と「Lesson11 フォーム関連の要素 – 後編 –」を参照
 :::
 

@@ -6,6 +6,7 @@ export default defineConfig({
   description: "ShibajukuのWebサイト制作ガイドライン",
   lang: "ja",
   head: [
+    ['meta', { property: 'og:image', content: "https://guidelines.shibajuku.net/ogp.png" }],
     ['link', { rel: 'icon', href: '/favicon.svg',  type: "image/svg+xml" }],
     [
       'link',
@@ -75,6 +76,7 @@ export default defineConfig({
       pattern: "https://github.com/shibajuku/guidelines/edit/main/src/:path",
       text: "GitHubで編集する",
     },
+    externalLinkIcon: true,
 
     lastUpdated: {
       text: "最終更新日",

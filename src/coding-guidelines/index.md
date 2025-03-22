@@ -82,7 +82,7 @@ pnpm create orelop@latest
 
 :::
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「静的サイト開発環境「Orelop」 講座」を参照
 :::
 
@@ -146,9 +146,12 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Au
      ├── 📂 assets                    # アセット
      │    ├── 📂 images               # 画像
      ├── 📂 components                # コンポーネント
-     │    └── Component-name.astro
+     │    ├── Header.astro
+     │    ├── Footer.astro
+     │    └── ComponentName.astro
      ├── 📂 layouts                   # レイアウト
-     │    └── Layout-name.astro
+     │    ├── Layout.astro
+     │    └── LayoutName.astro
      │── 📂 pages                     # ページ
      │    ├── 📂 category-name        # 下層ページ
      │    │    └── index.astro
@@ -293,6 +296,6 @@ FTP クライアント（ [filezilla](https://filezilla-project.org/) や [Cyber
 
 SFTP（推奨） や FTPS を利用しくてださい。
 
-::: info 📖 教材
+::: info :open_book: 教材
 詳細は「インターネット・アーキテクチャ 講座」 → 「Lesson6 アプリケーション層」を参照
 :::
