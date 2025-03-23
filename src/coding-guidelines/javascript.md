@@ -290,7 +290,7 @@ class Person {
 
 ```ts [TypeScript]
 // 🙅‍♂️ 悪い例
-function Person(this: any, name: string, age: number) {
+function Person(this: This, name: string, age: number) {
   this.name = name;
   this.age = age;
 
@@ -317,42 +317,57 @@ class Person {
 :::
 ## 関数
 
-関数の宣言は、意図しない再代入や巻き上げを防ぐために関数式を推奨します。
+関数宣言および、アロー関数による宣言をしてください。
+
+ユーティリティ関数や無名関数をコールバックとして渡す場合で、`this` にアクセスしないケースにおいては、アロー関数を使用してください。
 
 ::: code-group
 ```js [JavaScript]
 // 🙅‍♂️ 悪い例
-function sum(a, b) {
-  return a + b;
-}
-
-// 🙆‍♀️ 良い例
 const sum = function (a, b) {
   return a + b;
 };
+
+button.addEventListener("click", function() {
+  console.log("クリックされたよ");
+});
+
+// 🙆‍♀️ 良い例
+const sum = (a, b) => a + b;
+
+button.addEventListener("click", () => {
+  console.log("クリックされたよ");
+});
 ```
 
 ```ts [TypeScript]
 // 🙅‍♂️ 悪い例
-function sum(a: number, b: number): number {
-  return a + b;
-}
-
-// 🙆‍♀️ 良い例
 const sum = function (a: number, b: number): number {
   return a + b;
 };
+
+button.addEventListener("click", function() {
+  console.log("クリックされたよ");
+});
+
+// 🙆‍♀️ 良い例
+const sum = (a: number, b: number): number => a + b;
+
+button.addEventListener("click", () => {
+  console.log("クリックされたよ");
+});
 ```
+
+
 :::
 
 
-なお、ユーティリティ関数や無名関数をコールバックとして渡す場合で、`this` にアクセスしないケースにおいては、アロー関数を使用してください。
+::: tip Orelopの場合
+Orelop環境では、関数式による関数の宣言は、アロー関数に変換されます。
+:::
 
-```js
-button.addEventListener("click", () => {
-  console.log('クリックされたよ')；
-});
-```
+
+
 
 ## 条件分岐
 
@@ -488,7 +503,7 @@ for (const todo of todos) {
 // 🙅‍♂️ 悪い例
 let position = 0;
 
-const move = function () {
+const move = () => {
   position += 1;
   element.style.setProperty("--move", `${position}px`);
 };
@@ -499,7 +514,7 @@ setInterval(move, 16);
 let position = 0;
 let rafid;
 
-const move = function () {
+const move = () => {
   position += 1;
   element.style.setProperty("--move", `${position}px`);
 
@@ -515,7 +530,7 @@ rafid = requestAnimationFrame(move);
 // 🙅‍♂️ 悪い例
 let position = 0;
 
-const move = function (): void {
+const move = () => {
   position += 1;
   element.style.setProperty("--move", `${position}px`);
 };
@@ -526,7 +541,7 @@ setInterval(move, 16);
 let position = 0;
 let rafid: number;
 
-const move = function (): void {
+const move = () => {
   position += 1;
   element.style.setProperty("--move", `${position}px`);
 
@@ -550,14 +565,14 @@ function getData(url) {
   return new Promise((resolve, reject) => {
     const XHR = new XMLHttpRequest();
     XHR.open("GET", url);
-    XHR.onload = function () {
+    XHR.onload = () => {
       if (XHR.status === 200) {
         resolve(JSON.parse(XHR.responseText));
       } else {
         reject(new Error(`リクエスト失敗: ${XHR.status}`));
       }
     };
-    XHR.onerror = function () {
+    XHR.onerror = () => {
       reject(new Error("ネットワークエラー"));
     };
     XHR.send();
@@ -592,14 +607,14 @@ function getData(url: string): Promise<Data> {
   return new Promise((resolve, reject) => {
     const XHR = new XMLHttpRequest();
     XHR.open("GET", url);
-    XHR.onload = function () {
+    XHR.onload = () => {
       if (XHR.status === 200) {
         resolve(JSON.parse(XHR.responseText));
       } else {
         reject(new Error(`リクエスト失敗: ${XHR.status}`));
       }
     };
-    XHR.onerror = function () {
+    XHR.onerror = () => {
       reject(new Error("ネットワークエラー"));
     };
     XHR.send();
@@ -620,16 +635,12 @@ async function getData(url: string): Promise<Data> {
   return data;
 }
 
-async function fetchData(): Promise<void> {
-  try {
-    const data: Data = await getData("sample.json");
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
+try {
+  const data = await getData("sample.json");
+  console.log(data);
+} catch (error) {
+  console.error(error);
 }
-
-fetchData();
 ```
 :::
 ## エラーハンドリング
@@ -639,7 +650,7 @@ fetchData();
 ::: code-group
 ```js [JavaScript]
 // 🙅‍♂️ 悪い例
-const getBookmarks = function() {
+const getBookmarks = () => {
   const bookmarksData = localStorage.getItem("bookmarks");
   if (!bookmarksData) {
     return null;
@@ -647,11 +658,11 @@ const getBookmarks = function() {
 
   const bookmarks = JSON.parse(bookmarksData);
   return bookmarks;
-}
+};
 
 
 // 🙆‍♀️ 良い例
-const getBookmarks = function() {
+const getBookmarks = () => {
   try {
     const bookmarksData = localStorage.getItem("bookmarks");
 
@@ -661,31 +672,30 @@ const getBookmarks = function() {
 
     const bookmarks = JSON.parse(bookmarksData);
     return bookmarks;
-
   } catch (error) {
     console.error("ローカルストレージの読み込みエラー:", error);
     return null;
   }
-}
+};
 ```
 
 ```ts [TypeScript]
 // 🙅‍♂️ 悪い例
-const getBookmarks = function(): Bookmark[] | null {
-  const bookmarksData: string | null = localStorage.getItem("bookmarks");
+const getBookmarks = (): Bookmark[] | null => {
+  const bookmarksData = localStorage.getItem("bookmarks");
   if (!bookmarksData) {
     return null;
   }
 
   const bookmarks: Bookmark[] = JSON.parse(bookmarksData);
   return bookmarks;
-}
+};
 
 
 // 🙆‍♀️ 良い例
-const getBookmarks = function(): Bookmark[] | null {
+const getBookmarks = (): Bookmark[] | null => {
   try {
-    const bookmarksData: string | null = localStorage.getItem("bookmarks");
+    const bookmarksData = localStorage.getItem("bookmarks");
 
     if (!bookmarksData) {
       return null;
@@ -693,12 +703,11 @@ const getBookmarks = function(): Bookmark[] | null {
 
     const bookmarks: Bookmark[] = JSON.parse(bookmarksData);
     return bookmarks;
-
   } catch (error) {
     console.error("ローカルストレージの読み込みエラー:", error);
     return null;
   }
-}
+};
 ```
 :::
 ## イベント
@@ -770,14 +779,23 @@ HTML と JavaScript（TypeScript） のデータの受け渡しは、`data-*` �
   }
 }
 ```
-
-```js
+::: code-group
+```js [JavaScript]
 const buttonDarkTheme = document.querySelector('[data-action="dark"]');
 
 buttonDarkTheme?.addEventListener("click", () => {
   document.body.setAttribute("data-theme", "dark");
 });
 ```
+
+```ts [TypeScript]
+const buttonDarkTheme = document.querySelector<HTMLElement>('[data-action="dark"]');
+
+buttonDarkTheme?.addEventListener("click", () => {
+  document.body.setAttribute("data-theme", "dark");
+});
+```
+:::
 
 また、JavaScript（TypeScript） から 直接的なスタイルをセットする場合は、`style` 属性に直接プロパティをセットするのではなく、カスタムプロパティを利用してください。
 
@@ -793,7 +811,8 @@ buttonDarkTheme?.addEventListener("click", () => {
 }
 ```
 
-```js
+::: code-group
+```js [JavaScript]
 const targetMove = document.querySelector('[data-target="move"]');
 const buttonMove = document.querySelector('[data-action="move"]');
 
@@ -801,6 +820,17 @@ buttonMove?.addEventListener("click", () => {
   targetMove?.style.setProperty("--move", "50%");
 });
 ```
+
+```ts [TypeScript]
+const targetMove = document.querySelector<HTMLElement>('[data-target="move"]');
+const buttonMove = document.querySelector<HTMLButtonElement>('[data-action="move"]');
+
+buttonMove?.addEventListener("click", () => {
+  targetMove?.style.setProperty("--move", "50%");
+});
+
+```
+:::
 
 ::: tip Vue.js などのフレームワークの場合
 [Vue.js](https://ja.vuejs.org/) などのフレームワークを使っている場合は、それぞれのフレームワークの機能（ `ref`、`v-bind`、`v-on` など ）を使ってデータの受け渡しをしてください。
