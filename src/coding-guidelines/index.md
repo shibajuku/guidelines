@@ -44,6 +44,7 @@
 | [Prittier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)          | HTML のフォーマット                                                                                                                |
 | [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)                      | CSS と JavaScript（TypeScript） の解析とフォーマット                                                                               |
 | [Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)     | CSS プロパティの並び替えなど、[Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) で対応できない CSS の解析 |
+| [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)     | エディターの設定 |
 
 ### 必要ツール
 
