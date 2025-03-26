@@ -5,8 +5,10 @@
 なお、プロジェクトに独自のガイドラインやコーディングの指示がある場合にはそちらを優先してください。
 
 ::: info 💡 学習目的のガイドライン
-固く感じるかもしれませんが、あくまで学習目的のガイドラインのため、気軽に取り組んでもらえたらと思います 。
-ガイドライン上わからない箇所は、いつでも Discord でご質問ください。コードレビューもさせて頂きます。
+固く感じるかもしれませんが、あくまで学習目的のガイドラインのため気軽に取り組んでください。
+
+また、本ガイドラインは Shibajuku 内でのガイドラインです。今後、従事される環境のガイドラインに柔軟に対応できるよう、依存しないでください。
+なお、ガイドライン上わからない箇所は、いつでも Discord でご質問ください。コードレビューもさせて頂きます。
 :::
 
 ## 対応ブラウザ
@@ -106,6 +108,19 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Au
 | HTML                    | [Prettier](https://prettier.io/) | [Markuplint](https://markuplint.dev/ja/) |
 | CSS                     | [Biome](https://biomejs.dev/ja/) | [Biome](https://biomejs.dev/ja/)         |
 | JavaScript / TypeScript | [Biome](https://biomejs.dev/ja/) | [Biome](https://biomejs.dev/ja/)         |
+
+::: info コミット時のチェック
+[husky](https://typicode.github.io/husky/) などを活用して、 `git commit` 時にチェックが走るようにしてください。
+:::
+
+
+##### テキストエディタの設定
+
+[EditorConfig](https://editorconfig.org/)を用いて、以下の設定をしてください。
+
+- 文字エンコーディング: UTF-8
+- 改行コード: LF
+- インデント: 半角スペース 2 つ
 
 ## ディレクトリ構造
 
@@ -261,13 +276,8 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Au
 
 ## 開発
 
-テキストファイルを以下の設定にした上で、各ガイドラインに則ったコーディングを行ってください。
+各ガイドラインに則った開発を行ってください。
 
-### テキストファイルの設定
-
-- 文字エンコーディング: UTF-8
-- 改行コード: LF
-- インデント: 半角スペース 2 つ
 
 ### ガイドライン
 

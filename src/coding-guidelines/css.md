@@ -441,6 +441,10 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 }
 ```
 
+::: tip 👨‍💻 Orelop 環境の場合
+Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自動で省略されます。
+:::
+
 ### 文字サイズに応じて可変
 
 ブラウザの文字サイズ変更機能などによって文字サイズに応じて可変した方が良い箇所では、文字サイズによる相対的な長さの単位（`rem` や `em` など）を使用してください。
@@ -521,6 +525,10 @@ Orelop 環境の場合は、`fluid()` というオリジナル関数を使用し
 }
 ```
 
+::: tip 👨‍💻 Orelop 環境の場合
+Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自動で数値に変更されます。
+:::
+
 ::: info :open_book: 教材
 詳細は「本気で始める CSS 入門」 → 「Lesson2 フォント関連のプロパティ – 前編 –」 → 「Chapter3 文字の太さ」を参照
 :::
@@ -574,11 +582,11 @@ JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` �
 ビルド後は [Lightning CSS](https://lightningcss.dev/)、または [PostCSS](https://postcss.org/) によって、以下の CSS が出力されます。
 
 ```css
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   /* md サイズ以上のスタイル  */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   /* lg サイズ以上のスタイル  */
 }
 ```

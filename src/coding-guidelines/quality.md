@@ -17,9 +17,12 @@
 
 ## リンターによる検証
 
-開発中は [Markuplint](https://marketplace.visualstudio.com/items?itemName=yusukehirao.vscode-markuplint) や、 [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) 、[Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) によって検証されます。
 
-エディター上や、ビルド時に表示されるエラーや警告は必ず確認し修正してください。
+開発中、およびコミット時は、[Markuplint](https://marketplace.visualstudio.com/items?itemName=yusukehirao.vscode-markuplint) や、 [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) 、[Stylelint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint) によってコードが検証されます。
+
+エディター上や、コミット時に表示されるエラーや警告は必ず確認し修正してください。
+
+
 
 
 ## ブラッシュアップ
