@@ -40,7 +40,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '3.0.0-alpha.1',
+        text: '3.0.0-alpha.2',
         items: [
           { text: "変更履歴", link: "https://github.com/shibajuku/guidelines/releases" },
         ]
@@ -81,8 +81,7 @@ export default defineConfig({
     lastUpdated: {
       text: "最終更新日",
       formatOptions: {
-        dateStyle: "full",
-        timeStyle: "medium",
+        dateStyle: "long"
       },
     },
 
