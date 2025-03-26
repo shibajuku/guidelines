@@ -52,9 +52,9 @@
 
 以下のツールを事前に準備してください。
 
-- Node.js
-- Git
-- Docker（WordPress などの サーバーサイド開発の場合）
+- [Node.js](https://nodejs.org/ja)
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/ja-jp/products/docker-desktop/)（WordPress などの サーバーサイド開発の場合）
 
 ::: tip Node.js のバージョン管理とパッケージマネージャー
 Node.js のバージョン管理には、[Volta](https://volta.sh/) 、パッケージマネージャーは pnpm を推奨します。
@@ -63,13 +63,69 @@ Node.js のバージョン管理には、[Volta](https://volta.sh/) 、パッケ
 ### フロントエンドツール
 
 「Orelop」を利用した開発を推奨します。
+
 静的サイト構築のテンプレートは、[Astro](https://astro.build/) を推奨しますが、まだ [Astro](https://astro.build/) の学習が終わっていない場合は、「Static」 を選択してください。なお、WordPress テーマ開発の場合は「WP」を選択してください。
 
 #### Orelop
 
-開発用ディレクトリ内で、利用するパッケージマネージャー（pnpm 推奨）に合わせて以下のコマンドを実行し環境を構築します。
+開発用ディレクトリ内で、利用するパッケージマネージャー（pnpm 推奨）に合わせてインストールコマンドを実行し環境を構築します。
 
+
+インストールコマンド実行後、プロジェクト名、テンプレート、各種フレームワークやライブラリを選択すると、依存関係のインストールと各種設定が完了します。
+
+コマンドひとつで、本ガイドラインに対応した開発をすぐに開始できます。
+
+<!--
+##### ローカルサーバーの起動
 ::: code-group
+
+```zsh [npm]
+npm run dev
+```
+
+```zsh [Yarn]
+yarn dev
+```
+
+```zsh [pnpm]
+pnpm dev
+```
+:::
+
+##### 本番データのビルド
+::: code-group
+
+```zsh [npm]
+npm run build
+```
+
+```zsh [Yarn]
+yarn build
+```
+
+```zsh [pnpm]
+pnpm build
+```
+:::
+
+##### 本番データのプレビュー
+::: code-group
+
+```zsh [npm]
+npm run preview
+```
+
+```zsh [Yarn]
+yarn preview
+```
+
+```zsh [pnpm]
+pnpm preview
+```
+::: -->
+
+
+<!-- ::: code-group
 
 ```zsh [npm]
 npm create orelop@latest
@@ -83,10 +139,10 @@ yarn create orelop@latest
 pnpm create orelop@latest
 ```
 
-:::
+::: -->
 
-::: info :open_book: 教材
-詳細は「静的サイト開発環境「Orelop」 講座」を参照
+::: info :open_book: Orelop のインストールと使い方
+「Orelop」のインストールや使い方は、「静的サイト開発環境「Orelop」 講座」を参照してください。
 :::
 
 #### 独自のフロントエンド環境
@@ -106,7 +162,7 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Au
 | 言語                    | フォーマッター                   | リンター                                 |
 | ----------------------- | -------------------------------- | ---------------------------------------- |
 | HTML                    | [Prettier](https://prettier.io/) | [Markuplint](https://markuplint.dev/ja/) |
-| CSS                     | [Biome](https://biomejs.dev/ja/) | [Biome](https://biomejs.dev/ja/)         |
+| CSS                     | [Biome](https://biomejs.dev/ja/) | [Biome](https://biomejs.dev/ja/)、 [Stylelint](https://stylelint.io/)         |
 | JavaScript / TypeScript | [Biome](https://biomejs.dev/ja/) | [Biome](https://biomejs.dev/ja/)         |
 
 ::: info コミット時のチェック
