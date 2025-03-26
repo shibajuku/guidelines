@@ -6,7 +6,11 @@ export default defineConfig({
   description: "ShibajukuのWebサイト制作ガイドライン",
   lang: "ja",
   head: [
+    ['meta', { name: 'twitter:card', content: "summary_large_image" }],
+    ['meta', { name: 'twitter:site', content: "@shibajuku_salon" }],
     ['meta', { property: 'og:image', content: "https://guidelines.shibajuku.net/ogp.png" }],
+    ['meta', { property: 'og:url', content: "https://guidelines.shibajuku.net" }],
+    ['meta', { property: 'og:locale', content: "ja_JP" }],
     ['link', { rel: 'icon', href: '/favicon.svg',  type: "image/svg+xml" }],
     [
       'link',
@@ -40,7 +44,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '3.0.0-alpha.2',
+        text: '3.0.0-alpha.3',
         items: [
           { text: "変更履歴", link: "https://github.com/shibajuku/guidelines/releases" },
         ]
