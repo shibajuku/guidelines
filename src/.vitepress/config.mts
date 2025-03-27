@@ -67,6 +67,8 @@ export default defineConfig({
       },
     ],
 
+    outlineTitle: "このページの内容",
+
     socialLinks: [
       { icon: "x", link: "https://x.com/shibajuku_salon" },
       { icon: "github", link: "https://github.com/shibajuku/guidelines" }
@@ -80,6 +82,8 @@ export default defineConfig({
       pattern: "https://github.com/shibajuku/guidelines/edit/main/src/:path",
       text: "GitHubで編集する",
     },
+
+
     externalLinkIcon: true,
 
     lastUpdated: {
