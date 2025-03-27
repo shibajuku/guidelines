@@ -383,7 +383,7 @@ CSS のプロパティの記述順を以下の順番になるようにしてく�
 
 5. 文字の体裁やフォントに関わるプロパティ
 
-   `font-family`、`color`、`text-align`、`text-decoration`、`verticaalign`、`white-space` など
+   `font-family`、`color`、`text-align`、`text-decoration`、`vertical-align`、`white-space` など
 
 6. その他のプロパティ
 
