@@ -503,7 +503,8 @@ Orelop 環境の場合は、`fluid()` というオリジナル関数を使用し
 
 ### line-height
 
-`line-height` は原則単位なしの数値でしてください。
+`line-height` は原則単位なしの数値で指定してください。
+ただし、子孫に要素が配置されないことが明確な場合は、この限りではありません。
 
 ```css
 .heading {
@@ -535,7 +536,7 @@ Orelop 環境の場合は、[stylelint](https://stylelint.io/) によって自�
 
 ### background-image と border-image
 
-JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` 関数を使って Retina Display などの高解像ディスプレイへの対応を行ってください。
+JPEG、または PNG 形式の画像を使用する場合は、 `image-set()` 関数を使って Retina Display™ などの高解像ディスプレイ（High DPI Display）への対応を行ってください。
 
 ```css
 :where(body) {
