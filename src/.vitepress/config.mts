@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   transformPageData(pageData) {
-     const canonicalUrl = `https://example.com/${pageData.relativePath}`
+     const canonicalUrl = `https://guidelines.shibajuku.net/${pageData.relativePath}`
       .replace(/index\.md$/, '')
        .replace(/\.md$/, '.html')
 
@@ -68,7 +68,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '3.0.0-alpha.4',
+        text: '3.0.0-alpha.5',
         items: [
           { text: "変更履歴", link: "https://github.com/shibajuku/guidelines/releases" },
         ]
