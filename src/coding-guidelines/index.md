@@ -125,21 +125,7 @@ pnpm preview
 ::: -->
 
 
-<!-- ::: code-group
 
-```zsh [npm]
-npm create orelop@latest
-```
-
-```zsh [Yarn]
-yarn create orelop@latest
-```
-
-```zsh [pnpm]
-pnpm create orelop@latest
-```
-
-::: -->
 
 ::: info :open_book: Orelop のインストールと使い方
 「Orelop」のインストールや使い方は、「静的サイト開発環境「Orelop」 講座」を参照してください。
@@ -343,7 +329,13 @@ CSS は、[Lightning CSS](https://lightningcss.dev/)（推奨）、または [Au
 
 ## アクセシビリティ
 
-[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4 つの基本原則（知覚可能、操作可能、理解可能、堅牢性）をもとに、AA の準拠を目指したコーディングを心がけてください。
+[WCAG 2.2](https://www.w3.org/TR/WCAG22/) の 4 つの基本原則（知覚可能、操作可能、理解可能、堅牢性）を意識したコーディングを行なってください。
+
+また、可能な限り AA の準拠を目指し、必要に応じて「アクセシビリティポリシー」ページの作成も行なってください。
+
+::: info :open_book: 教材
+詳細は「Webディレクション講座」→「Lesson2 ユーザービリティとアクセシビリティ」 → 「Cahpter2 アクセシビリティ」を参照してください。
+:::
 
 ## バージョン管理
 

@@ -120,7 +120,7 @@ iOS や Android などの実機を用意できない場合は、それぞれの�
 - `meta`要素（`discription` や OGP など）は正しく記述されているか？
 - `link`要素 （`canonical`、ファビコンなど）は正しく設置されているか？
 - アクセス解析のトラッキングコードは正しく設置されているか？
-- 構造化データは正しく設定されているか？
+- 構造化データ（JSON-LD）は正しく設定されているか？
 
 
 ::: warning
@@ -135,4 +135,4 @@ Shibajuku の 課題や検索エンジンにインデックスされて欲しく
 
 ## アクセシビリティチェック
 
-ブラウザ拡張機能の [axe DevTools - Web Accessibility Testing](https://chromewebstore.google.com/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?pli=1) を活用して、アクセシビリティ上の問題がないかを確認してください。
+ブラウザ拡張機能の [axe DevTools - Web Accessibility Testing](https://chromewebstore.google.com/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?pli=1) を活用して、問題がないかを確認してください。
