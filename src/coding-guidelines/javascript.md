@@ -17,7 +17,7 @@
 
 TypeScript は、[Vite](https://ja.vite.dev/) の [esbuild](https://esbuild.github.io/) によって、JavaScript にコンパイル（トランスパイル）されます。
 
-ただし、チームのコーディングメンバーに TypeScript の学習が終わっていない方がいる場合は、Vanila JS で開発を行なってください。
+ただし、チームのコーディングメンバーに TypeScript の学習が終わっていない方がいる場合は、Vanilla JS で開発を行なってください。
 
 [jQuery](https://jquery.com/) は原則として利用しませんが、既存のプロジェクトで利用している場合など、利用する必要がある場合には、jQuery を使った開発も許容します。
 
@@ -36,7 +36,7 @@ JavaScript（TypeScript） ファイルは、機能ごとに分割し、該当�
 │    ├── Toggle.js
 │    └── library-name.js
 ├── 📂 utils
-│    └── utilitie-name.css
+│    └── utility-name.css
 └── main.js
 ```
 
@@ -48,7 +48,7 @@ JavaScript（TypeScript） ファイルは、機能ごとに分割し、該当�
 │    ├── Toggle.ts
 │    └── library-name.ts
 ├── 📂 utils
-│    └── utilitie-name.css
+│    └── utility-name.css
 └── main.ts
 ```
 :::
@@ -717,6 +717,12 @@ const getBookmarks = (): Bookmark[] | null => {
 `scroll` イベントは、ユーザーがスクロールする度にイベントが発生しパフォーマンスに影響が出る可能性があります。
 
 ビューポート内の要素にスクロール関連のイベントを使う場合は、`IntersectionObserver` で対応できないかを検討してください。
+
+
+::: tip Rolaの利用
+スクロールイベントの多くは、[Rola](https://hilosiva.github.io/rola/) を利用することで実装可能です。
+Rolaは、`IntersectionObserver` や、`ResizeObserver` を活用したライブラリのためブラウザの負担も少なくスクロール関連の処理が可能です。
+:::
 
 ### リサイズイベント
 

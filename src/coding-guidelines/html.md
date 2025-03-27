@@ -161,11 +161,11 @@ URL 内の `&` も対象です。
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <s type="module" src="/assets/scripts/main.ts"></script>
+  <script type="module" src="/assets/scripts/main.ts"></script>
 </head>
 ```
 
-## titile 要素
+## title 要素
 
 ユーザビリティ、アクセシビリティ、SEO の観点から適切な内容を記述してください。
 
@@ -575,7 +575,7 @@ CMS などによって投稿されたコンテンツを除き、セクショニ�
 
 ### ページ内リンク
 
-ページ内リンクは、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）、または ヘディング・コンテンツ（`h1` – `h6`, `hgroup`）、`figure` に `id` 属性を適切な固有名で指定しリンクしてください。
+ページ内リンクは、セクショニング・コンテンツ（`section`, `article`, `nav`, `aside`）、または ヘディング・コンテンツ（`h1` – `h6`, `hgroup`）、`figure` に `id` 属性を適切な固有名で指定しリンクしてください。
 
 ```html
 <!-- 🙅‍♂️ 悪い例 -->
@@ -942,7 +942,7 @@ Web フォントや Google Maps、YouTube などのセルフホストができ�
 
 ### id 属性
 `id`属性は、コンテンツの内容を表した適切な固有名で指定してください。
-可能であれば、セクショニング・コンテンツ（`section`, `artcle`, `nav`, `aside`）には、ページ内リンクを指定しない場合でも `id`属性を指定し、ユーザーがコンテンツにリンクを指定できるように備えてください。
+可能であれば、セクショニング・コンテンツ（`section`, `article`, `nav`, `aside`）には、ページ内リンクを指定しない場合でも `id`属性を指定し、ユーザーがコンテンツにリンクを指定できるように備えてください。
 
 なお、サイト公開後は、外部からコンテンツへのリンクさている可能性を考慮し、安易に `id`属性の値を変更または削除しないでください。
 
