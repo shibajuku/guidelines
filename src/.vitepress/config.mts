@@ -19,6 +19,13 @@ export default defineConfig({
       }
     ])
     pageData.frontmatter.head.push([
+      'meta',
+      {
+        name: 'og:url',
+        content: canonicalUrl
+      }
+    ])
+    pageData.frontmatter.head.push([
       'link',
       { rel: 'canonical', href: canonicalUrl }
     ])
@@ -32,7 +39,6 @@ export default defineConfig({
     ['meta', { property: 'og:type', content: "website" }],
     ['meta', { property: 'og:description', content: "ShibajukuのWebサイト制作ガイドライン" }],
     ['meta', { property: 'og:image', content: "https://guidelines.shibajuku.net/ogp.png" }],
-    ['meta', { property: 'og:url', content: "https://guidelines.shibajuku.net" }],
     ['meta', { property: 'og:locale', content: "ja_JP" }],
     ['meta', { property: 'og:site_name', content: "Shibajuku Guidelines" }],
     ['link', { rel: 'icon', href: '/favicon.svg',  type: "image/svg+xml" }],
