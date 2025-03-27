@@ -357,7 +357,7 @@ import "@styles/global.scss";
 ::: code-group
 
 ```html [JavaScript]
-<script type="module" src="/assets/scripts/main.js"></s>
+<script type="module" src="/assets/scripts/main.js"></script>
 ```
 
 ```html [TypeScript]
@@ -405,25 +405,20 @@ import "@styles/global.scss";
 
 ```html
 <body>
-  <header>
-    <!-- banner -->
-    <nav aria-label="メインメニュー">
-      <!-- navigation -->
+  <header><!-- banner -->
+    <nav aria-label="メインメニュー"><!-- navigation -->
       ...
     </nav>
     ...
   </header>
-  <main>
-    <!-- main -->
-    <nav aria-labelledby="local-nav">
-      <!-- navigation -->
+  <main><!-- main -->
+    <nav aria-labelledby="local-nav"><!-- navigation -->
       <h2 id="local-nav">ページ内メニュー</h2>
       ...
     </nav>
     ...
   </main>
-  <footer>
-    <!-- contentinfo -->
+  <footer><!-- contentinfo -->
     ...
   </footer>
 </body>
