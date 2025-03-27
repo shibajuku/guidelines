@@ -2,15 +2,39 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  transformPageData(pageData) {
+     const canonicalUrl = `https://example.com/${pageData.relativePath}`
+      .replace(/index\.md$/, '')
+       .replace(/\.md$/, '.html')
+
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push([
+      'meta',
+      {
+        name: 'og:title',
+        content:
+          pageData.frontmatter.layout === 'home'
+            ? `Shibajuku Guidelines`
+            : `${pageData.title} | Shibajuku Guidelines`
+      }
+    ])
+    pageData.frontmatter.head.push([
+      'link',
+      { rel: 'canonical', href: canonicalUrl }
+    ])
+  },
   title: "Shibajuku Guidelines",
   description: "ShibajukuのWebサイト制作ガイドライン",
   lang: "ja",
   head: [
     ['meta', { name: 'twitter:card', content: "summary_large_image" }],
     ['meta', { name: 'twitter:site', content: "@shibajuku_salon" }],
+    ['meta', { property: 'og:type', content: "website" }],
+    ['meta', { property: 'og:description', content: "ShibajukuのWebサイト制作ガイドライン" }],
     ['meta', { property: 'og:image', content: "https://guidelines.shibajuku.net/ogp.png" }],
     ['meta', { property: 'og:url', content: "https://guidelines.shibajuku.net" }],
     ['meta', { property: 'og:locale', content: "ja_JP" }],
+    ['meta', { property: 'og:site_name', content: "Shibajuku Guidelines" }],
     ['link', { rel: 'icon', href: '/favicon.svg',  type: "image/svg+xml" }],
     [
       'link',
@@ -44,7 +68,7 @@ export default defineConfig({
         ]
       },
       {
-        text: '3.0.0-alpha.3',
+        text: '3.0.0-alpha.4',
         items: [
           { text: "変更履歴", link: "https://github.com/shibajuku/guidelines/releases" },
         ]
