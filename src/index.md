@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Shibajuku Guidelines"
-  text: "Confidently deliver better websites"
+  text: "Better websites,<br>with confidence"
   tagline: Quality. Growth. Communication.
   actions:
     - theme: brand
